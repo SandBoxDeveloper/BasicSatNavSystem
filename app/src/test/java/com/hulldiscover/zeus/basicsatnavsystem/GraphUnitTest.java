@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Zeus on 12/06/16.
@@ -51,6 +52,31 @@ public class GraphUnitTest {
         int edgesCount = directedGraph.numberOfEdges();
         assertEquals(9, edgesCount);
     }
+
+    /*
+     * Does the graph return it's
+     * associated vertices ?
+     *
+     * It should not be null.
+     */
+    @Test
+    public void returnVertices() throws Exception {
+        assertNotNull(directedGraph.vertices());
+    }
+
+    /*
+     * Check adjacent vertex.
+     * Is vertex A adjacent to
+     * vertex B ?
+     *
+     * It should return true.
+     */
+    @Test
+    public void isAdjacentTo() throws Exception {
+        assertTrue(directedGraph.isAdjacentTo("A", "B"));
+    }
+
+
 
     /*Distance for route A-B-C. Expected output 9
             2. Distance for route A-D. Expected output 5

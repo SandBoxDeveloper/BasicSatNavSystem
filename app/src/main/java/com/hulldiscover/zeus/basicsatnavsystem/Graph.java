@@ -2,6 +2,7 @@ package com.hulldiscover.zeus.basicsatnavsystem;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Zeus on 12/06/16.
@@ -11,6 +12,8 @@ public class Graph {
     private final Map<String, Vertex> graph; // mapping of vertex names to Vertex objects, built from a set of Edges
     // number of edges
     private int edgesCount;
+    //private ArrayList<String, Array[] list> adj = new ArrayList<String, Array[]>();    // adj[v] = adjacency list for vertex v
+
 
     /*
      * In a directed graph,
@@ -61,6 +64,7 @@ public class Graph {
         public int distance = Integer.MAX_VALUE; // MAX_VALUE assumed to be infinity
         public Vertex previous = null;
         public final Map<Vertex, Integer> neighbours = new HashMap<>();
+        public final Map<String, String> adj = new HashMap<>();
 
         /* Constructor
          * Creates an vertex in a graph
@@ -122,12 +126,10 @@ public class Graph {
             // if graph (HashMap) doesn't contain vertex1
             if (!graph.containsKey(e.vertex1)) {
                 graph.put(e.vertex1, new Vertex(e.vertex1));
-                //edgesCount++; // increment number of edges
             }
             // if graph (HashMap) doesn't contain vertex2
             if (!graph.containsKey(e.vertex2)) {
                 graph.put(e.vertex2, new Vertex(e.vertex2));
-                //edgesCount++; // increment number of edges
             }
         }
 
@@ -138,10 +140,130 @@ public class Graph {
          */
         for (Edge e : edges) {
             // neighbours of vertices
-            graph.get(e.vertex1).neighbours.put(graph.get(e.vertex1), e.distance);
+            graph.get(e.vertex1).neighbours.put(graph.get(e.vertex2), e.distance);
+            graph.get(e.vertex1).adj.put(graph.get(e.vertex1).name, graph.get(e.vertex2).name);
+            //adj.put(e.vertex1, e.vertex2);
+            //adj.put(e.vertex2, e.vertex1);
             //graph.get(e.v2).neighbours.put(graph.get(e.v1), e.dist); // also do this for an undirected graph
         }
 
+    }
+
+    /* Method throw an exception if
+     * @param String vertex is not a vertex
+     * in graph.
+     */
+    private void validateVertex(String vertex) {
+        if (!graphHasVertex(vertex)) {
+            throw new IllegalArgumentException(vertex + " is not a vertex");
+        }
+    }
+
+    /* Method returns the
+     * vertices in graph.
+     *
+     * @return the set of vertices in this graph
+     */
+    public Iterable<String> vertices () {
+        return graph.keySet();
+    }
+
+    /*
+     * In graph theory, an adjacent vertex
+     * of a vertex v in a graph is a vertex
+     * that is connected to v by an edge.
+     */
+    //public Iterable<String> adjacentTo(String vertex) {
+        public void adjacentTo(String vertex) {
+        // first validate this input is
+        // an vertex in graph
+        validateVertex(vertex);
+            //String adjacentValue = adj.get(vertex);
+            String name[] = new String [graph.get(vertex).adj.size()];
+            String name2[] = new String [graph.get(vertex).adj.size()];
+            int i = 0;
+            //if(graph.get(vertex).neighbours.containsKey(vertex)) {
+                Set<Vertex> v = graph.get(vertex).neighbours.keySet();
+                for(Vertex vertex1 : v) {
+                    System.out.println(vertex + " is Adjacent to: " + vertex1.name);
+                }
+                //name2[i] = graph.get(vertex).neighbours.get(vertex);
+                //i++;
+            //}
+            //else {
+               // System.out.println(vertex + " No match");
+            //}
+            /*if(graph.get(vertex).adj.containsValue(vertex)) {
+                name[i] = graph.get(vertex).adj.get(vertex);
+                i++;
+            }*/
+            /*for(String adjVale: name) {
+                System.out.println(vertex + " is Adjacent to: " + adjVale);
+            }
+            for(String adjVale: name2) {
+                System.out.println(vertex + " is also Adjacent to: " + adjVale);
+            }*/
+
+            //System.out.println("Adjacent: " + adjacentValue);
+
+            /*Set<Vertex> entry = graph.get(vertex).neighbours.keySet();
+            for(Vertex p : entry) {
+                System.out.println("Neighbour: " +p.neighbours);
+            }
+
+        //Set<Vertex> v = graph.get(vertex).neighbours.get(0);
+            System.out.println("Neighbour: " +entry.toString());*/
+        //return graph.get(vertex).name.toString();
+    }
+
+    /**
+     * Returns the set of vertices adjacent to v in this graph.
+     *
+     * @param  v the vertex
+     * @return the set of vertices adjacent to vertex <tt>v</tt> in this graph
+     * @throws IllegalArgumentException if <tt>v</tt> is not a vertex in this graph
+     */
+    public Set<Vertex> adjacentTo2(String v) {
+        validateVertex(v);
+        return graph.get(v).neighbours.keySet();
+    }
+
+    /* Method check if vertex is adjacent
+     * to another vertex.
+     *
+     * @param vertex1 the first vertex
+     * @param vertex2 the second vertex
+     * @return true of false whether vertex is adjacent to
+     */
+    public boolean isAdjacentTo(String vertex1, String vertex2) {
+        boolean isAdjacent = false;
+        // Set that contains
+        // keys of @param vertex1
+        // neighbours
+        Set<Vertex> vertexSet = graph.get(vertex1).neighbours.keySet();
+
+        // Check vertex has neighbour
+        // of @param vertex2
+        for(Vertex vertex : vertexSet) {
+            if(vertex.name.equals(vertex2)) {
+                isAdjacent = true;
+                return isAdjacent;
+            }
+        }
+
+        return isAdjacent;
+    }
+
+    /* Method returns true if
+     * input @param String v is
+     * a vertex in graph.
+     *
+     * @param  vertex the vertex
+     * @return <tt>true</tt> if <tt>vertex</tt> is a vertex in graph,
+     *         <tt>false</tt> otherwise
+     */
+    public boolean graphHasVertex(String vertex) {
+        return graph.containsKey(vertex);
     }
 
     /* Method returns the
