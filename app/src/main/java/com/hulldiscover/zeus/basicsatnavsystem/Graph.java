@@ -7,8 +7,10 @@ import java.util.Map;
  * Created by Zeus on 12/06/16.
  */
 public class Graph {
+    // graph
     private final Map<String, Vertex> graph; // mapping of vertex names to Vertex objects, built from a set of Edges
-
+    // number of edges
+    private int edgesCount;
 
     /*
      * In a directed graph,
@@ -108,6 +110,7 @@ public class Graph {
     public Graph(Edge[] edges) {
         // Init graph to length of edges array
         graph = new HashMap<>(edges.length);
+        edgesCount = edges.length;
 
         //one pass to find all vertices
         /* Conditional statement with
@@ -119,10 +122,12 @@ public class Graph {
             // if graph (HashMap) doesn't contain vertex1
             if (!graph.containsKey(e.vertex1)) {
                 graph.put(e.vertex1, new Vertex(e.vertex1));
+                //edgesCount++; // increment number of edges
             }
             // if graph (HashMap) doesn't contain vertex2
             if (!graph.containsKey(e.vertex2)) {
                 graph.put(e.vertex2, new Vertex(e.vertex2));
+                //edgesCount++; // increment number of edges
             }
         }
 
@@ -139,8 +144,24 @@ public class Graph {
 
     }
 
-    public int numberVertices() {
+    /* Method returns the
+     * number of vertices graph.
+     *
+     * @return the number of vertices in graph
+     * @see int
+     */
+    public int numberOfVertices() {
         return graph.size();
+    }
+
+    /* Method returns the
+     * number of edges graph.
+     *
+     * @return the number of edges in graph
+     * @see int
+     */
+    public int numberOfEdges() {
+        return edgesCount;
     }
 
 

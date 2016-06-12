@@ -12,8 +12,10 @@ public class MainActivity extends AppCompatActivity {
 
         // setup and init directed graph
         Graph directedGraph = new Graph(GRAPH);
-        int verticesSize = directedGraph.numberVertices();
-        System.out.println(verticesSize);
+        int verticesSize = directedGraph.numberOfVertices();
+        int edgesSize = directedGraph.numberOfEdges();
+        System.out.println("Number of vertices: " +verticesSize);
+        System.out.println("Number of edges: " +edgesSize);
         directedGraph.printPath("e");
 
 

@@ -22,12 +22,35 @@ public class GraphUnitTest {
             new Graph.Edge("A", "E", 7),
     };
 
+    Graph directedGraph = new Graph(GRAPH);
+
+    /*
+     * Is the directed graph setup successful?
+     */
     @Test
     public void setupgraph_isCorrect() throws Exception {
-        Graph directedGraph = new Graph(GRAPH);
         assertNotNull(directedGraph);
     }
 
+    /*
+     * Number of vertices in graph
+     * Expected count is 6
+     */
+    @Test
+    public void numberOfVertices() throws Exception {
+        int verticesCount = directedGraph.numberOfVertices();
+        assertEquals(5, verticesCount);
+    }
+
+    /*
+     * Number of Edges in graph
+     * Expected count is 9
+     */
+    @Test
+    public void numberOfEdges() throws Exception {
+        int edgesCount = directedGraph.numberOfEdges();
+        assertEquals(9, edgesCount);
+    }
 
     /*Distance for route A-B-C. Expected output 9
             2. Distance for route A-D. Expected output 5
