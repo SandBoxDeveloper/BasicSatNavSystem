@@ -2,6 +2,7 @@ package com.hulldiscover.zeus.basicsatnavsystem;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -25,5 +26,17 @@ public class GraphUnitTest {
     public void setupgraph_isCorrect() throws Exception {
         Graph directedGraph = new Graph(GRAPH);
         assertNotNull(directedGraph);
+    }
+
+
+    /*Distance for route A-B-C. Expected output 9
+            2. Distance for route A-D. Expected output 5
+            3. Distance for route A-D-C. Expected output 13
+            4. Distance for route A-E-B-C-D. Expected output 21*/
+
+    @Test
+    public void distanceFromABC() throws Exception {
+        Graph directedGraph = new Graph(GRAPH);
+        assertEquals(5, directedGraph.getDistance("A", "D"));
     }
 }

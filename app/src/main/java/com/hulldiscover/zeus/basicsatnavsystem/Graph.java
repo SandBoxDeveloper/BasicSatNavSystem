@@ -132,10 +132,18 @@ public class Graph {
          * TODO: Understand
          */
         for (Edge e : edges) {
+            // neighbours of vertices
             graph.get(e.vertex1).neighbours.put(graph.get(e.vertex1), e.distance);
             //graph.get(e.v2).neighbours.put(graph.get(e.v1), e.dist); // also do this for an undirected graph
         }
+
     }
+
+    public int numberVertices() {
+        return graph.size();
+    }
+
+
 
     /** Prints a path from the source to the specified vertex */
     public void printPath(String endName) {
@@ -147,5 +155,27 @@ public class Graph {
         graph.get(endName).printPath();
         System.out.println();
     }
+
+    public void printAllPaths() {
+        for (Vertex v : graph.values()) {
+            v.printPath();
+            System.out.println();
+        }
+    }
+
+    public int getDistance(String startName, String endName) {
+        int distance = 0;
+        if(graph.containsKey(startName)) {
+             distance = graph.get(startName).distance;
+        } else {
+            System.err.printf("Graph doesn't contain vertex");
+        }
+        return distance;
+    }
+
+    //TODO: Class called PathTO using BreadthFirstSearch Algorithim
+    // PathFinder(Graph G, String s) constructor
+    // int distanceTo(String v) length of shortest path of s to v in G
+    // Interable<String> pathTo(String v) shortest path from s to v in G
 
 }
