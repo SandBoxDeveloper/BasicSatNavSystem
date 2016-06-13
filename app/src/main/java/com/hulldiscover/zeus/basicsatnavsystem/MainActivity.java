@@ -35,18 +35,12 @@ public class MainActivity extends AppCompatActivity {
         // Init PathFinder
         PathFinder pathFinder = new PathFinder(directedGraph, "A");
         boolean hasPath = pathFinder.hasPathTo("C");
-        int distanceTo = pathFinder.distanceTo("C");
+        int distanceTo = pathFinder.distanceTo("A", "D");
         System.out.println("HasPath?: " +hasPath);
         System.out.println("Distance to: " +distanceTo);
 
         BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedGraph);
         List<List<String>> paths = new ArrayList<List<String>>();
-
-        //pathFinder.findPath(directedGraph, "A", "E");
-        //new FindAllPaths(directedGraph, "A", "B");
-
-
-        //FindAllPaths findAllPaths = new FindAllPaths(directedGraph, "A", "E");
 
 
 
@@ -81,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         paths.add(path3);
         paths.add(path4);
 
-        List<List<String>> pathList = findAllPaths.getAllPaths("D","B");
+        List<List<String>> pathList = findAllPaths.getAllPaths("C","C");
         for(List<String> pathNames : pathList) {
             System.out.println(pathNames);
         }

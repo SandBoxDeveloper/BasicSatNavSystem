@@ -47,15 +47,23 @@ public class PathFinder {
         return distance.containsKey(v);
     }
 
-    public int distanceTo(String v) {
+    public int distanceTo(String v, String d) {
         if(!hasPathTo(v)) return Integer.MAX_VALUE;
 
-        //for (Graph.Edge edge : edges) {
+        int dis = 0;
+        for (Graph.Edge edge : edges) {
+            if (edge.vertex1.equals(v)
+                    && edge.vertex2.equals(d)) {
+                dis = edge.distance;
+            }
+            if (edge.vertex1.equals(v)
+                    && edge.vertex2.equals(d)) {
+                dis = edge.distance;
+            }
+        }
 
-
-        //}
-
-        return distance.get(v);
+        return dis;
+        //return distance.get(v);
     }
 
     // The National Institute of Standards and Technology (NIST)

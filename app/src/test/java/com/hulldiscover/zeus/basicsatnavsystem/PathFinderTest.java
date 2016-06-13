@@ -2,7 +2,6 @@ package com.hulldiscover.zeus.basicsatnavsystem;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -31,8 +30,6 @@ public class PathFinderTest {
     PathFinder pathFinder = new PathFinder(directedGraph, "A");
 
     BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedGraph);
-    List<List<String>> paths = new ArrayList<List<String>>();
-
 
 
 
@@ -50,8 +47,13 @@ public class PathFinderTest {
      * Expected result should return 9
      */
     @Test
-    public void distanceTo() throws Exception {
-        assertEquals(9, pathFinder.distanceTo("C"));
+    public void distanceToAToD() throws Exception {
+        assertEquals(5, pathFinder.distanceTo("A", "D"));
+    }
+
+    @Test
+    public void distanceToAToC() throws Exception {
+        assertEquals(9, pathFinder.distanceTo("A", "C"));
     }
 
     /*
@@ -59,7 +61,42 @@ public class PathFinderTest {
      * Expected result
      */
     @Test
+    public void findAllPathsAToE() throws Exception {
+        List<List<String>> pathList = findAllPaths.getAllPaths("A","E");
+        for(List<String> pathNames : pathList) {
+            System.out.println(pathNames);
+        }
+    }
+
+    // Find all routes A - D
+    @Test
+    public void findAllPathsAToD() throws Exception {
+        //assertNotNull(findAllPaths());
+        List<List<String>> pathList = findAllPaths.getAllPaths("A","D");
+        for(List<String> pathNames : pathList) {
+            System.out.println(pathNames);
+        }
+    }
+
+    // Find all routes A - C
+    @Test
+    public void findAllPathsAToC() throws Exception {
+        //assertNotNull(findAllPaths());
+        List<List<String>> pathList = findAllPaths.getAllPaths("A","C");
+        for(List<String> pathNames : pathList) {
+            System.out.println(pathNames);
+        }
+    }
+
+    @Test
     public void findAllPaths() throws Exception {
         //assertNotNull(findAllPaths());
+        List<List<String>> pathList = findAllPaths.getAllPaths("C","C");
+        for(List<String> pathNames : pathList) {
+            System.out.println(pathNames);
+        }
     }
+
+
+
 }
