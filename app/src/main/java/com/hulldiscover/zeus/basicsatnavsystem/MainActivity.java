@@ -18,17 +18,21 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Number of edges: " +edgesSize);
 
 
-        directedGraph.adjacentTo("A");
-        directedGraph.adjacentTo("B");
-        directedGraph.adjacentTo("E");
+        directedGraph.printVerticesAdjacentTo("A");
+        directedGraph.printVerticesAdjacentTo("B");
+        directedGraph.printVerticesAdjacentTo("E");
 
         boolean is = directedGraph.isAdjacentTo("A", "B");
         System.out.println(is);
 
+        int dis = directedGraph.getDistance("A", "D");
+        int dis2 = directedGraph.getDistance2("A", "B", "C");
+        System.out.println(dis2);
+
 
         /*for (String v : directedGraph.vertices()) {
             System.out.print(v + ": ");
-            for (Graph.Vertex w : directedGraph.adjacentTo2(v)) {
+            for (Graph.Vertex w : directedGraph.setOfVerticesAdjacentTo(v)) {
                 System.out.print(w.distance + " ");
             }
             System.out.println();
@@ -54,17 +58,5 @@ public class MainActivity extends AppCompatActivity {
             new Graph.Edge("E", "B", 3),
             new Graph.Edge("A", "E", 7),
     };
-    /*private static final Graph.Edge[] GRAPH = {
-            new Graph.Edge("a", "b", 7),
-            new Graph.Edge("a", "c", 9),
-            new Graph.Edge("a", "f", 14),
-            new Graph.Edge("b", "c", 10),
-            new Graph.Edge("b", "d", 15),
-            new Graph.Edge("c", "d", 11),
-            new Graph.Edge("c", "f", 2),
-            new Graph.Edge("d", "e", 6),
-            new Graph.Edge("e", "f", 9),
-    };*/
-
 
 }

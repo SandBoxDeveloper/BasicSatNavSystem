@@ -76,6 +76,11 @@ public class GraphUnitTest {
         assertTrue(directedGraph.isAdjacentTo("A", "B"));
     }
 
+    @Test
+    public void getDistanceBetweenPaths() throws Exception {
+        assertEquals(5, directedGraph.getDistance("A", "D"));
+    }
+
 
 
     /*Distance for route A-B-C. Expected output 9
@@ -86,6 +91,6 @@ public class GraphUnitTest {
     @Test
     public void distanceFromABC() throws Exception {
         Graph directedGraph = new Graph(GRAPH);
-        assertEquals(5, directedGraph.getDistance("A", "D"));
+        assertEquals(9, directedGraph.getDistance2("A", "B", "C"));
     }
 }

@@ -12,8 +12,7 @@ public class Graph {
     private final Map<String, Vertex> graph; // mapping of vertex names to Vertex objects, built from a set of Edges
     // number of edges
     private int edgesCount;
-    //private ArrayList<String, Array[] list> adj = new ArrayList<String, Array[]>();    // adj[v] = adjacency list for vertex v
-
+    Edge[] edges;
 
     /*
      * In a directed graph,
@@ -64,7 +63,6 @@ public class Graph {
         public int distance = Integer.MAX_VALUE; // MAX_VALUE assumed to be infinity
         public Vertex previous = null;
         public final Map<Vertex, Integer> neighbours = new HashMap<>();
-        public final Map<String, String> adj = new HashMap<>();
 
         /* Constructor
          * Creates an vertex in a graph
@@ -115,6 +113,7 @@ public class Graph {
         // Init graph to length of edges array
         graph = new HashMap<>(edges.length);
         edgesCount = edges.length;
+        this.edges = edges;
 
         //one pass to find all vertices
         /* Conditional statement with
@@ -136,22 +135,19 @@ public class Graph {
         //another pass to set neighbouring vertices
         /* Conditional statement with
          * ternary operator support
-         * TODO: Understand
          */
         for (Edge e : edges) {
             // neighbours of vertices
             graph.get(e.vertex1).neighbours.put(graph.get(e.vertex2), e.distance);
-            graph.get(e.vertex1).adj.put(graph.get(e.vertex1).name, graph.get(e.vertex2).name);
-            //adj.put(e.vertex1, e.vertex2);
-            //adj.put(e.vertex2, e.vertex1);
             //graph.get(e.v2).neighbours.put(graph.get(e.v1), e.dist); // also do this for an undirected graph
         }
-
     }
 
     /* Method throw an exception if
      * @param String vertex is not a vertex
      * in graph.
+     *
+     * @param vertex the vertex
      */
     private void validateVertex(String vertex) {
         if (!graphHasVertex(vertex)) {
@@ -172,60 +168,39 @@ public class Graph {
      * In graph theory, an adjacent vertex
      * of a vertex v in a graph is a vertex
      * that is connected to v by an edge.
+     *
+     * This method prints
+     * the neighbour to a vertex
+     *
+     * @param  vertex the vertex
      */
-    //public Iterable<String> adjacentTo(String vertex) {
-        public void adjacentTo(String vertex) {
+    public void printVerticesAdjacentTo(String vertex) {
         // first validate this input is
         // an vertex in graph
         validateVertex(vertex);
-            //String adjacentValue = adj.get(vertex);
-            String name[] = new String [graph.get(vertex).adj.size()];
-            String name2[] = new String [graph.get(vertex).adj.size()];
-            int i = 0;
-            //if(graph.get(vertex).neighbours.containsKey(vertex)) {
-                Set<Vertex> v = graph.get(vertex).neighbours.keySet();
-                for(Vertex vertex1 : v) {
-                    System.out.println(vertex + " is Adjacent to: " + vertex1.name);
-                }
-                //name2[i] = graph.get(vertex).neighbours.get(vertex);
-                //i++;
-            //}
-            //else {
-               // System.out.println(vertex + " No match");
-            //}
-            /*if(graph.get(vertex).adj.containsValue(vertex)) {
-                name[i] = graph.get(vertex).adj.get(vertex);
-                i++;
-            }*/
-            /*for(String adjVale: name) {
-                System.out.println(vertex + " is Adjacent to: " + adjVale);
-            }
-            for(String adjVale: name2) {
-                System.out.println(vertex + " is also Adjacent to: " + adjVale);
-            }*/
 
-            //System.out.println("Adjacent: " + adjacentValue);
+        // Set of keys from HashMap
+        // that contain the neighbours to
+        // @param vertex
+        Set<Vertex> vertexSet = graph.get(vertex).neighbours.keySet();
 
-            /*Set<Vertex> entry = graph.get(vertex).neighbours.keySet();
-            for(Vertex p : entry) {
-                System.out.println("Neighbour: " +p.neighbours);
-            }
-
-        //Set<Vertex> v = graph.get(vertex).neighbours.get(0);
-            System.out.println("Neighbour: " +entry.toString());*/
-        //return graph.get(vertex).name.toString();
+        // Loop through set
+        // and print values
+        for (Vertex vertex1 : vertexSet) {
+            System.out.println(vertex + " is Adjacent to: " + vertex1.name);
+        }
     }
 
     /**
-     * Returns the set of vertices adjacent to v in this graph.
+     * Returns the set of vertices adjacent to vertex in graph.
      *
-     * @param  v the vertex
+     * @param  vertex the vertex
      * @return the set of vertices adjacent to vertex <tt>v</tt> in this graph
      * @throws IllegalArgumentException if <tt>v</tt> is not a vertex in this graph
      */
-    public Set<Vertex> adjacentTo2(String v) {
-        validateVertex(v);
-        return graph.get(v).neighbours.keySet();
+    public Set<Vertex> setOfVerticesAdjacentTo(String vertex) {
+        validateVertex(vertex);
+        return graph.get(vertex).neighbours.keySet();
     }
 
     /* Method check if vertex is adjacent
@@ -308,12 +283,34 @@ public class Graph {
 
     public int getDistance(String startName, String endName) {
         int distance = 0;
-        if(graph.containsKey(startName)) {
+        /*if(graph.containsKey(startName)) {
              distance = graph.get(startName).distance;
         } else {
             System.err.printf("Graph doesn't contain vertex");
+        }*/
+
+        for (Edge edge : edges) {
+            if (edge.vertex1.equals(startName)
+                    && edge.vertex2.equals(endName)) {
+                distance = edge.distance;
+            }
+            if (edge.vertex1.equals(startName)
+                    && edge.vertex2.equals(endName)) {
+                distance = edge.distance;
+            }
         }
         return distance;
+    }
+
+    public int getDistance2(String startName, String middleName, String endName) {
+        for (Edge edge : edges) {
+            if (edge.vertex1.equals(startName)
+                    && edge.vertex2.equals(middleName)
+                    && edge.vertex1.equals(endName)) {
+                return edge.distance;
+            }
+        }
+        throw new RuntimeException("Should not happen");
     }
 
     //TODO: Class called PathTO using BreadthFirstSearch Algorithim
