@@ -81,6 +81,16 @@ public class GraphUnitTest {
         assertEquals(5, directedGraph.getDistance("A", "D"));
     }
 
+    @Test
+    public void getDistanceBetweenAC() throws Exception {
+        assertEquals(9, directedGraph.getDistance("A", "C"));
+    }
+
+    @Test
+    public void getDistanceBetweenBB() throws Exception {
+        assertEquals(9, directedGraph.getDistance("B", "B"));
+    }
+
 
 
     /*Distance for route A-B-C. Expected output 9

@@ -1,7 +1,10 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +29,25 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(is);
 
         int dis = directedGraph.getDistance("A", "D");
-        int dis2 = directedGraph.getDistance2("A", "B", "C");
-        System.out.println(dis2);
+        //int dis2 = directedGraph.getDistance2("A", "B", "C");
+        System.out.println(dis);
+
+        // Init PathFinder
+        PathFinder pathFinder = new PathFinder(directedGraph, "A");
+        boolean hasPath = pathFinder.hasPathTo("C");
+        int distanceTo = pathFinder.distanceTo("C");
+        System.out.println("HasPath?: " +hasPath);
+        System.out.println("Distance to: " +distanceTo);
+
+        BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedGraph);
+        List<List<String>> paths = new ArrayList<List<String>>();
+
+        //pathFinder.findPath(directedGraph, "A", "E");
+        //new FindAllPaths(directedGraph, "A", "B");
+
+
+        //FindAllPaths findAllPaths = new FindAllPaths(directedGraph, "A", "E");
+
 
 
         /*for (String v : directedGraph.vertices()) {
@@ -38,6 +58,33 @@ public class MainActivity extends AppCompatActivity {
             System.out.println();
         }*/
 
+
+
+        // ABC - expected 9
+        List<String> path1 = new ArrayList<String>();
+        path1.add("A"); path1.add("B"); path1.add("C");
+
+        // AD - expected 5
+        List<String> path2 = new ArrayList<String>();
+        path2.add("A"); path2.add("D");
+
+        // ADC - expected 13
+        List<String> path3 = new ArrayList<String>();
+        path3.add("A"); path3.add("D"); path3.add("C");
+
+        // AEBCD - expected 21
+        List<String> path4 = new ArrayList<String>();
+        path4.add("A"); path4.add("E"); path4.add("B"); path4.add("C"); path4.add("D");
+
+        paths.add(path1);
+        paths.add(path2);
+        paths.add(path3);
+        paths.add(path4);
+
+        List<List<String>> pathList = findAllPaths.getAllPaths("D","B");
+        for(List<String> pathNames : pathList) {
+            System.out.println(pathNames);
+        }
 
 
     }

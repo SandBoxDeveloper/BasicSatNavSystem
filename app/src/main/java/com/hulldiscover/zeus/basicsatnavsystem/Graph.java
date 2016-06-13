@@ -1,6 +1,7 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public class Graph {
     private int edgesCount;
     Edge[] edges;
 
-    /*
+    /**
      * In a directed graph,
      * an edge is an ordered pair of nodes.
      * These are the lines that connect to
@@ -46,9 +47,15 @@ public class Graph {
             this.vertex2 = vertex2;
             this.distance = distance;
         }
+
+
+
+
+
+
     }
 
-    /*
+    /**
      * In a directed graph,
      * is represented by a circle with a label.
      *
@@ -102,8 +109,7 @@ public class Graph {
         }
     }
 
-
-    /*
+    /**
      * This class constructs a graph
      * based off a set of edges.
      *
@@ -143,8 +149,9 @@ public class Graph {
         }
     }
 
-    /* Method throw an exception if
-     * @param String vertex is not a vertex
+    /**
+     * Method throw an exception if
+     * parameter is not a vertex
      * in graph.
      *
      * @param vertex the vertex
@@ -155,7 +162,8 @@ public class Graph {
         }
     }
 
-    /* Method returns the
+    /**
+     * Method returns the
      * vertices in graph.
      *
      * @return the set of vertices in this graph
@@ -164,7 +172,16 @@ public class Graph {
         return graph.keySet();
     }
 
-    /*
+    /**
+     * Returns the iterator that travels the vertexs of a graph.
+     *
+     * @return an iterator that travels the vertexs of a graph.
+     */
+    public Iterator<String> iterator() {
+        return graph.keySet().iterator();
+    }
+
+    /**
      * In graph theory, an adjacent vertex
      * of a vertex v in a graph is a vertex
      * that is connected to v by an edge.
@@ -203,7 +220,8 @@ public class Graph {
         return graph.get(vertex).neighbours.keySet();
     }
 
-    /* Method check if vertex is adjacent
+    /**
+     * Method check if vertex is adjacent
      * to another vertex.
      *
      * @param vertex1 the first vertex
@@ -229,7 +247,8 @@ public class Graph {
         return isAdjacent;
     }
 
-    /* Method returns true if
+    /**
+     *  Method returns true if
      * input @param String v is
      * a vertex in graph.
      *
@@ -241,7 +260,8 @@ public class Graph {
         return graph.containsKey(vertex);
     }
 
-    /* Method returns the
+    /**
+     *  Method returns the
      * number of vertices graph.
      *
      * @return the number of vertices in graph
@@ -251,7 +271,8 @@ public class Graph {
         return graph.size();
     }
 
-    /* Method returns the
+    /**
+     *  Method returns the
      * number of edges graph.
      *
      * @return the number of edges in graph
@@ -260,8 +281,6 @@ public class Graph {
     public int numberOfEdges() {
         return edgesCount;
     }
-
-
 
     /** Prints a path from the source to the specified vertex */
     public void printPath(String endName) {
@@ -303,14 +322,21 @@ public class Graph {
     }
 
     public int getDistance2(String startName, String middleName, String endName) {
+        int distance = 0;
         for (Edge edge : edges) {
             if (edge.vertex1.equals(startName)
                     && edge.vertex2.equals(middleName)
                     && edge.vertex1.equals(endName)) {
-                return edge.distance;
+                distance = edge.distance;
             }
+            if (edge.vertex1.equals(startName)
+                    && edge.vertex2.equals(middleName)
+                    && edge.vertex1.equals(endName)) {
+                distance = edge.distance;
+            }
+            //throw new RuntimeException("Should not happen");
         }
-        throw new RuntimeException("Should not happen");
+        return distance;
     }
 
     //TODO: Class called PathTO using BreadthFirstSearch Algorithim
