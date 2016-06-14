@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         /*for (String v : directedGraph.vertices()) {
             System.out.print(v + ": ");
             for (Graph.Vertex w : directedGraph.setOfVerticesAdjacentTo(v)) {
@@ -75,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
         paths.add(path2);
         paths.add(path3);
         paths.add(path4);
+
+        RoutePathLength routePathLengthCalculation = new RoutePathLength();
+        List<String> routePath = new ArrayList<String>();
+
+
+        // act
+        int routeLength = routePathLengthCalculation.getRouteLength(directedGraph, path1);
+        System.out.println("Path1" + routeLength);
 
         List<List<String>> pathList = findAllPaths.getAllPaths("A","D");
         TreeMap<String, Integer> routeDistances = findAllPaths.routeDistances();
