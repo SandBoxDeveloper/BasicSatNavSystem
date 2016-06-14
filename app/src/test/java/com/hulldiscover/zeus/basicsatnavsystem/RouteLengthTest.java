@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class RouteLengthTest {
 
+    // Vertex (node) points
     public static final String A = "A";
     public static final String B = "B";
     public static final String C = "C";
@@ -31,18 +32,26 @@ public class RouteLengthTest {
             new Graph.Edge(A, E, 7),
     };
 
-
-
-
-
-
     // Graph
     Graph directedGraph;
 
-    /* AB5, BC4, CD7, DC8, DE6, AD5, CE2, EB3, AE7*/
+    // Path Search
+    BreadthFirstPaths findAllPaths;
+
+    /**
+     * Set up test environment
+     * based on given specification.
+     *
+     * Test Data:
+     * AB5, BC4, CD7, DC8, DE6, AD5, CE2, EB3, AE7
+     * */
     @Before
     public void setUp() {
+        // Init Graph
         directedGraph = new Graph(GRAPH);
+
+        // Init search
+        findAllPaths = new BreadthFirstPaths(directedGraph);
     }
 
     // Distance for route A-B-C
@@ -57,10 +66,10 @@ public class RouteLengthTest {
         routePath.add(B);
         routePath.add(C);
 
-        int expected = 9;
+        String expected = "9";
 
         // Calculate route path distance
-        int routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -77,10 +86,10 @@ public class RouteLengthTest {
         routePath.add(A);
         routePath.add(D);
 
-        int expected = 5;
+        String expected = "5";
 
         // Calculate route path distance
-        int routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -98,10 +107,10 @@ public class RouteLengthTest {
         routePath.add(D);
         routePath.add(C);
 
-        int expected = 13;
+        String expected = "13";
 
         // Calculate route path distance
-        int routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -121,10 +130,10 @@ public class RouteLengthTest {
         routePath.add(C);
         routePath.add(D);
 
-        int expected = 21;
+        String expected = "21";
 
         // Calculate route path distance
-        int routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -145,7 +154,7 @@ public class RouteLengthTest {
         String expected = "NO SUCH ROUTE";
 
         // Calculate route path distance
-        int routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);

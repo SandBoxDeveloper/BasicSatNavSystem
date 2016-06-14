@@ -15,18 +15,34 @@ import java.util.ListIterator;
  */
 public class RoutePathLength {
 
-    public int getRouteLength(Graph directedGraph, List<String> path) {
+    // Path Search
+    BreadthFirstPaths findAllPaths;
+
+    /**
+     * This method gets the distance (length) of
+     * a path.
+     * @param directedGraph
+     * @param path
+     * @return the route distance
+     */
+    public String getRouteLength(Graph directedGraph, List<String> path) {
 
         // Sum of distance in path
         int distanceBetweenTwoVertexPoints = 0;
 
-        // Check if path is empty
-        if (path.isEmpty()) { // if no paths exist
+        /* Run check first before continuing
+         *
+         * 1) Check that path exist in graph
+         * 2) If path exist, continue with route calculation.
+         *    Else, return "NO SUCH ROUTE".
+         */
 
-            noSuchRoute(); // Print "NO SUCH ROUTE"
+        // Use FindPath class to check
+        // Init search class
+        findAllPaths = new BreadthFirstPaths(directedGraph);
 
-        } else { // Else, find distance of path
-
+        // 1) & 2)
+        if(findAllPaths.pathExist(path) == true) { // find distance of path
             // Iterate through path
             ListIterator<String> iterator = path.listIterator();
 
@@ -59,12 +75,31 @@ public class RoutePathLength {
                     distanceBetweenTwoVertexPoints += directedGraph.getDistance(previousVertex, nextVertex);
                 }
             }
+
+            return tryParse(distanceBetweenTwoVertexPoints);
         }
-        return distanceBetweenTwoVertexPoints;
+
+        else { // no paths exist
+            return "NO SUCH ROUTE"; // Print "NO SUCH ROUTE"
+        }
+
+
     }
 
-    private String noSuchRoute () {
-        return "NO SUCH ROUTE";
+    /**
+     * This method try to parse int input
+     * to a string value.
+     * If it cannot, it return null.
+     * @param value
+     * @return the string representation of int input OR
+     *         null if if cannot convert int value.
+     */
+    public static String tryParse(int value) {
+        try {
+            return Integer.toString(value);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

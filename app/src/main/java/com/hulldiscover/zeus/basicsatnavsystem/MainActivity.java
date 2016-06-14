@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // act
-        int routeLength = routePathLengthCalculation.getRouteLength(directedGraph, path1);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, path1);
         System.out.println("Path1" + routeLength);
 
         List<List<String>> pathList = findAllPaths.getAllPaths("A","D");
