@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,9 +76,17 @@ public class MainActivity extends AppCompatActivity {
         paths.add(path3);
         paths.add(path4);
 
-        List<List<String>> pathList = findAllPaths.getAllPaths("C","C");
+        List<List<String>> pathList = findAllPaths.getAllPaths("A","D");
+        TreeMap<String, Integer> routeDistances = findAllPaths.routeDistances();
+        TreeMap<String, List<String>> routeDis = findAllPaths.routeDis();
         for(List<String> pathNames : pathList) {
             System.out.println(pathNames);
+        }
+        for (String key : routeDistances.keySet()) {
+            System.out.println(key + " output is " + routeDistances.get(key));
+        }
+        for (String key : routeDis.keySet()) {
+            System.out.println(key + " output is " + routeDis.get(key));
         }
 
 

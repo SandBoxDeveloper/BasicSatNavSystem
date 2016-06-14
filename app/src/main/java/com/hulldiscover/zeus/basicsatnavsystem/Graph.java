@@ -32,8 +32,7 @@ public class Graph {
         public final String vertex2;
         public final int distance;
 
-
-        /* Constructor
+        /** Constructor
          * Creates an edge in a graph
          *
          * @param vertex1 the first vertex in graph
@@ -47,11 +46,6 @@ public class Graph {
             this.vertex2 = vertex2;
             this.distance = distance;
         }
-
-
-
-
-
 
     }
 
@@ -71,7 +65,7 @@ public class Graph {
         public Vertex previous = null;
         public final Map<Vertex, Integer> neighbours = new HashMap<>();
 
-        /* Constructor
+        /** Constructor
          * Creates an vertex in a graph
          *
          * @param name the name of the vertex
@@ -81,7 +75,7 @@ public class Graph {
             this.name = name;
         }
 
-        /*
+        /**
          * Print path of vertex
          * @param null
          * @return void

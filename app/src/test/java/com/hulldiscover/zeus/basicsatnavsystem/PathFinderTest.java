@@ -39,7 +39,8 @@ public class PathFinderTest {
      */
     @Test
     public void hasPathTo() throws Exception {
-        assertTrue(pathFinder.hasPathTo("C"));
+        //assertTrue(pathFinder.hasPathTo("C"));
+        assertTrue(findAllPaths.hasPathTo("C"));
     }
 
     /*
