@@ -6,6 +6,8 @@
     <string name="search_btn">-> Search routes</string>
     <string name="bestroute_btn">Best route</string>
     <string name="route">Route</string>
+    <string name="list_route_label">"Route: "</string>
+    <string name="cancel">Cancel</string>
 
 
     <string-array name="destination_array">
@@ -14,5 +16,13 @@
         <item>C</item>
         <item>D</item>
         <item>E</item>
+    </string-array>
+
+    <string-array name="transit_mode">
+        <item>Car</item>
+        <item>Public Transport</item>
+        <item>Walk</item>
+        <item>Cycle</item>
+        <item>Spaceship</item>
     </string-array>
 </resources>
