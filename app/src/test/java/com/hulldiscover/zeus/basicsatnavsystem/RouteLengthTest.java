@@ -1,5 +1,7 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
+import com.hulldiscover.zeus.basicsatnavsystem.Calculator.RoutePathLength;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -79,7 +81,7 @@ public class RouteLengthTest {
     // Expected output 5
     @Test
     public void testRouteDistanceCalculatorSecondCase() {
-        // Prrepare
+        // Prepare
         RoutePathLength routePathLengthCalculation = new RoutePathLength();
         List<String> routePath = new ArrayList<String>();
         // Route A-D
@@ -152,6 +154,46 @@ public class RouteLengthTest {
         routePath.add(D);
 
         String expected = "NO SUCH ROUTE";
+
+        // Calculate route path distance
+        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+
+        // Assert
+        Assert.assertEquals(expected, routeLength);
+    }
+
+    // Distance for route A-C
+    // Expected output 9
+    @Test
+    public void testRouteDistanceCalculatorSixthCase() {
+        // Prepare
+        RoutePathLength routePathLengthCalculation = new RoutePathLength();
+        List<String> routePath = new ArrayList<String>();
+        // Route A-C
+        routePath.add(A);
+        routePath.add(C);
+
+        String expected = "9";
+
+        // Calculate route path distance
+        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+
+        // Assert
+        Assert.assertEquals(expected, routeLength);
+    }
+
+    // Distance for route B-B
+    // Expected output 9
+    @Test
+    public void testRouteDistanceCalculatorSeventhCase() {
+        // Prepare
+        RoutePathLength routePathLengthCalculation = new RoutePathLength();
+        List<String> routePath = new ArrayList<String>();
+        // Route B-B
+        routePath.add(B);
+        routePath.add(B);
+
+        String expected = "9";
 
         // Calculate route path distance
         String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);

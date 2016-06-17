@@ -1,4 +1,7 @@
-package com.hulldiscover.zeus.basicsatnavsystem;
+package com.hulldiscover.zeus.basicsatnavsystem.Calculator;
+
+import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
+import com.hulldiscover.zeus.basicsatnavsystem.Graph;
 
 import java.util.List;
 import java.util.ListIterator;

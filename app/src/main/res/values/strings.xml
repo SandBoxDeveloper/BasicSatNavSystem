@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">BasicSatNavSystem</string>
+    <string name="main_app_screen">Plan a Journey</string>
+    <string name="start">Start Point</string>
+    <string name="destination">Destination</string>
+    <string name="search_btn">-> Search routes</string>
+    <string name="bestroute_btn">Best route</string>
+    <string name="route">Route</string>
+
+
+    <string-array name="destination_array">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+    </string-array>
 </resources>

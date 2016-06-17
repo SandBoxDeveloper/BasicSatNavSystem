@@ -1,14 +1,14 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Zeus on 13/06/16.
@@ -62,7 +62,6 @@ public class PathFinderTest {
     }
 
 
-
     // There exist a route for A-E-D
     // Expected output FALSE
     @Test
@@ -82,71 +81,96 @@ public class PathFinderTest {
     }
 
 
-
-
-
-    /*
-     * Does vertex B have path to C ?
-     * Expected result should return true
-     */
+    // Find all paths from A - E
+    // Expected size 5
     @Test
-    public void hasPathTo() throws Exception {
-        assertTrue(findAllPaths.hasPathTo("C"));
-    }
+    public void testFindAllPathsFirstCase() throws Exception {
+        // Prepare
+        int expected = 5;
 
-    /*
-     * Distance of shortest path
-     * Expected result should return 9
-     */
-    @Test
-    public void distanceToAToD() throws Exception {
-        assertEquals(5, pathFinder.distanceTo("A", "D"));
-    }
+        // Find all possible paths
+        List<List<String>> pathList = findAllPaths.getAllPaths(A,E);
 
-    @Test
-    public void distanceToAToC() throws Exception {
-        assertEquals(9, pathFinder.distanceTo("A", "C"));
-    }
-
-    /*
-     * Find all paths from A - E
-     * Expected result
-     */
-    @Test
-    public void findAllPathsAToE() throws Exception {
-        List<List<String>> pathList = findAllPaths.getAllPaths("A","E");
+        // Print paths
         for(List<String> pathNames : pathList) {
             System.out.println(pathNames);
         }
+
+        // Assert
+        Assert.assertEquals(expected, pathList.size());
     }
 
-    // Find all routes A - D
+    // Find all paths from A - D
+    // Expected size 3
     @Test
-    public void findAllPathsAToD() throws Exception {
-        //assertNotNull(findAllPaths());
-        List<List<String>> pathList = findAllPaths.getAllPaths("A","D");
+    public void testFindAllPathsSecondCase() throws Exception {
+        // Prepare
+        int expected = 3;
+
+        // Find all possible paths
+        List<List<String>> pathList = findAllPaths.getAllPaths(A,D);
+
+        // Print paths
         for(List<String> pathNames : pathList) {
             System.out.println(pathNames);
         }
+
+        // Assert
+        Assert.assertEquals(expected, pathList.size());
     }
 
-    // Find all routes A - C
+    // Find all paths from A - C
+    // Expected size 3
     @Test
-    public void findAllPathsAToC() throws Exception {
-        //assertNotNull(findAllPaths());
-        List<List<String>> pathList = findAllPaths.getAllPaths("A","C");
+    public void testFindAllPathsThirdCase() throws Exception {
+
+        // Prepare
+        int expected = 4;
+
+        // Find all possible paths
+        List<List<String>> pathList = findAllPaths.getAllPaths(A,C);
+
+        // Print paths
         for(List<String> pathNames : pathList) {
             System.out.println(pathNames);
         }
+
+        // Assert
+        Assert.assertEquals(expected, pathList.size());
+
     }
 
+    // Find all paths from C - C (Cyclic path)
+    // Expected size 9
     @Test
     public void findAllPaths() throws Exception {
-        //assertNotNull(findAllPaths());
-        List<List<String>> pathList = findAllPaths.getAllPaths("C","C");
+        // Prepare
+        int expected = 9;
+
+        // Find all possible paths
+        List<List<String>> pathList = findAllPaths.getAllPaths(C,C);
+
+        // Print paths
         for(List<String> pathNames : pathList) {
             System.out.println(pathNames);
         }
+
+        // Assert
+        Assert.assertEquals(expected, pathList.size());
+    }
+
+    @Test
+    public void testIsCyclicPath() throws Exception {
+        // Prepare
+        boolean expected = true;
+
+        Graph.Vertex vertex = new Graph.Vertex(A);
+
+        // Compute if path cyclic
+        boolean outcome = directedGraph.isCyclicDirected(vertex);
+
+        // Assert
+        Assert.assertEquals(expected, outcome);
     }
 
 

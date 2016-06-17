@@ -10,7 +10,7 @@ import java.util.TreeMap;
  * Created by Zeus on 13/06/16.
  */
 public class PathFinder {
-    // previous = previous vertex on shortest path from source vertex to destination vertex
+    // predecessor = predecessor vertex on shortest path from source vertex to destination vertex
     // distance = length of shortest path from source vertex to destination vertex
 
     private final TreeMap<String, String> previous = new TreeMap<String, String>();

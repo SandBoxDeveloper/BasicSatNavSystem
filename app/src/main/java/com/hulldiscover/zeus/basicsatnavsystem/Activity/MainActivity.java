@@ -1,7 +1,13 @@
-package com.hulldiscover.zeus.basicsatnavsystem;
+package com.hulldiscover.zeus.basicsatnavsystem.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
+import com.hulldiscover.zeus.basicsatnavsystem.Graph;
+import com.hulldiscover.zeus.basicsatnavsystem.PathFinder;
+import com.hulldiscover.zeus.basicsatnavsystem.R;
+import com.hulldiscover.zeus.basicsatnavsystem.Calculator.RoutePathLength;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +27,35 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Number of vertices: " +verticesSize);
         System.out.println("Number of edges: " +edgesSize);
 
+        Graph.Vertex a = new Graph.Vertex("A");
+        Graph.Vertex d = new Graph.Vertex("D");
+        directedGraph.breadthFirstSearch(a);
+        directedGraph.pathString(a,d);
+
+        directedGraph.dijkstra("C");
+        //directedGraph.printPath("C");
+        //directedGraph.printAllPaths();
+
+        /*Graph.Vertex v = new Graph.Vertex("A");
+        boolean isCycle = directedGraph.isCyclicDirected(v);
+        boolean hasSelfLoop = directedGraph.hasSelfLoop("C");
+        System.out.println("Self Loop " +hasSelfLoop);
+        System.out.println("Cycle" +isCycle);
+
+        DirectedCycle finder = new DirectedCycle(directedGraph);
+        if (finder.hasCycle()) {
+            System.out.println("Directed cycle: ");
+            for (String vo : finder.cycle()) {
+                System.out.println(vo + " ");
+            }
+            System.out.println();
+        }
+
+        else {
+            System.out.println("No directed cycle");
+        }*/
+        System.out.println();
+
 
         directedGraph.printVerticesAdjacentTo("A");
         directedGraph.printVerticesAdjacentTo("B");
@@ -30,8 +65,9 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(is);
 
         int dis = directedGraph.getDistance("A", "D");
-        //int dis2 = directedGraph.getDistance2("A", "B", "C");
         System.out.println(dis);
+
+        directedGraph.printPath("C");
 
         // Init PathFinder
         PathFinder pathFinder = new PathFinder(directedGraph, "A");
@@ -42,19 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
         BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedGraph);
         List<List<String>> paths = new ArrayList<List<String>>();
-
-
-
-
-
-        /*for (String v : directedGraph.vertices()) {
-            System.out.print(v + ": ");
-            for (Graph.Vertex w : directedGraph.setOfVerticesAdjacentTo(v)) {
-                System.out.print(w.distance + " ");
-            }
-            System.out.println();
-        }*/
-
 
 
         // ABC - expected 9
@@ -102,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
+    /**
      * TEST DATA
      * Method to setup graph
      * with its associated edges.

@@ -81,26 +81,7 @@ public class GraphUnitTest {
         assertEquals(5, directedGraph.getDistance("A", "D"));
     }
 
-    @Test
-    public void getDistanceBetweenAC() throws Exception {
-        assertEquals(9, directedGraph.getDistance("A", "C"));
-    }
-
-    @Test
-    public void getDistanceBetweenBB() throws Exception {
-        assertEquals(9, directedGraph.getDistance("B", "B"));
-    }
 
 
 
-    /*Distance for route A-B-C. Expected output 9
-            2. Distance for route A-D. Expected output 5
-            3. Distance for route A-D-C. Expected output 13
-            4. Distance for route A-E-B-C-D. Expected output 21*/
-
-    @Test
-    public void distanceFromABC() throws Exception {
-        Graph directedGraph = new Graph(GRAPH);
-        assertEquals(9, directedGraph.getDistance2("A", "B", "C"));
-    }
 }
