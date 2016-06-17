@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">BasicSatNavSystem</string>
     <string name="main_app_screen">Plan a Journey</string>
+
+    <string name="car_transit_title">Car Route</string>
+    <string name="cycle_transit_title">Cycle Route</string>
+    <string name="public_transport_transit_title">Public Transport Route</string>
+    <string name="spaceship_transit_title">Woo! Voyage by Spaceship</string>
+    <string name="walk_transit_title">Walking Route</string>
+
     <string name="start">Start Point</string>
     <string name="destination">Destination</string>
     <string name="search_btn">-> Search routes</string>

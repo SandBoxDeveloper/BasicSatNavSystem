@@ -1,6 +1,7 @@
 package com.hulldiscover.zeus.basicsatnavsystem.Activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -44,6 +45,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
 
     // Animation
     Animation animFadein;
+    Animation animZoomin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,9 +163,12 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
         // load the animation
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.move);
+        animZoomin = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.zoom_in);
 
         // set animation listener
         animFadein.setAnimationListener(this);
+        animZoomin.setAnimationListener(this);
 
         // button click event
         transitMode = (ImageButton) findViewById(R.id.transport_icon);
@@ -190,25 +195,40 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                         switch (selection) {
                             case 0:
                                 // Car first option selected
+                                Intent transitOptionCar = new Intent(Navigation.this, Activity_TransitOptionCar.class);
+                                dialog.dismiss();
+                                startActivity(transitOptionCar);
                                 break;
                             case 1:
                                 // Public transport when 2nd  option selected
+                                Intent transitOptionPublicTransport = new Intent(Navigation.this, Activity_TransitOptionPublicTransport.class);
+                                dialog.dismiss();
+                                startActivity(transitOptionPublicTransport);
                                 break;
                             case 2:
                                 // Walk 3rd option selected
+                                Intent transitOptionWalk = new Intent(Navigation.this, Activity_TransitOptionWalk.class);
+                                dialog.dismiss();
+                                startActivity(transitOptionWalk);
                                 break;
                             case 3:
                                 // Cycle option selected
+                                Intent transitOptionCycle = new Intent(Navigation.this, Activity_TransitOptionCycle.class);
+                                dialog.dismiss();
+                                startActivity(transitOptionCycle);
                                 break;
                             case 4:
                                 // Spaceship option selected
+                                Intent transitOptionSpaceship = new Intent(Navigation.this, Activity_TransitOptionSpaceship.class);
+                                dialog.dismiss();
+                                startActivity(transitOptionSpaceship);
                                 break;
                         }
                     }
 
                 }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        dialog.cancel();
                     }
                 });
 

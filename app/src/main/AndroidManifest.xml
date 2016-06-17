@@ -9,8 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.MainActivity">
-
         </activity>
+
         <activity android:name=".Activity.Navigation"
             android:label="@string/main_app_screen">
 
@@ -19,6 +19,47 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".Activity.Activity_TransitOptionCar"
+            android:label="@string/car_transit_title"
+            android:parentActivityName=".Activity.Navigation" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.Navigation" />
+        </activity>
+
+        <activity android:name=".Activity.Activity_TransitOptionCycle"
+            android:label="@string/cycle_transit_title">
+            <!-- Parent activity -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.Navigation" />
+        </activity>
+
+        <activity android:name=".Activity.Activity_TransitOptionPublicTransport"
+            android:label="@string/public_transport_transit_title">
+            <!-- Parent activity -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.Navigation" />
+        </activity>
+
+        <activity android:name=".Activity.Activity_TransitOptionSpaceship"
+            android:label="@string/spaceship_transit_title">
+            <!-- Parent activity -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.Navigation" />
+        </activity>
+
+        <activity android:name=".Activity.Activity_TransitOptionWalk"
+            android:label="@string/walk_transit_title">
+            <!-- Parent activity -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.Navigation" />
         </activity>
 
     </application>
