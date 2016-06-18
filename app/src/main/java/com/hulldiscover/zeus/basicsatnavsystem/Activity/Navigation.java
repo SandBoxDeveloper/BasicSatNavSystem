@@ -10,12 +10,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hulldiscover.zeus.basicsatnavsystem.Adapter.ListAdapter;
@@ -32,8 +30,8 @@ import java.util.List;
 public class Navigation extends AppCompatActivity implements Animation.AnimationListener{
 
 
-    AutoCompleteTextView start;
-    TextView destination;
+    EditText start;
+    EditText destination;
     Button searchRoutes;
     ImageButton reversePath;
     ImageButton transitMode;
@@ -55,19 +53,19 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
         // setup and init directed graph
         final Graph directedGraph = new Graph(GRAPH);
 
-        // Get a reference to the AutoCompleteTextView in the layout
-        start = (AutoCompleteTextView) findViewById(R.id.start);
+        // Get a reference to the editText in the layout
+        start = (EditText) findViewById(R.id.start);
 
         // Get the string array
-        String[] countries = getResources().getStringArray(R.array.destination_array);
+        //String[] countries = getResources().getStringArray(R.array.destination_array);
 
         // Create the adapter and set it to the AutoCompleteTextView
-        ArrayAdapter<String> adapter =
+        /*ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.activity_list_item, countries);
-        start.setAdapter(adapter);
+        start.setAdapter(adapter);*/
 
-        // Get reference of textViews in the layout
-        destination = (TextView) findViewById(R.id.destination);
+        // Get reference of editText in the layout
+        destination = (EditText) findViewById(R.id.destination);
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.route_listview);
 
@@ -81,6 +79,11 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
         searchRoutes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Validate inputs
+                if (!validate()) {
+                    return; // return is input invalid
+                }
+
                 // Init search
                 BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedGraph);
 
@@ -243,6 +246,36 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
 
 
 
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String startInputText = start.getText().toString();
+        String destinationInputText = destination.getText().toString();
+
+        if (startInputText.isEmpty()) {
+            start.setError("Insert starting point");
+            valid = false;
+        } else {
+            start.setError(null);
+        }
+
+        if (destinationInputText.isEmpty()) {
+            destination.setError("Insert destination");
+            valid = false;
+        } else {
+            destination.setError(null);
+        }
+
+        if (startInputText.length() > 2 || destinationInputText.length() > 2) {
+            destination.setError("Single letters only");
+            valid = false;
+        } else {
+            destination.setError(null);
+        }
+
+        return valid;
     }
 
     @Override
