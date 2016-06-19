@@ -14,9 +14,10 @@ import java.util.Map;
  */
 public class ShortestPath {
     LinkedList<Graph.Vertex> shortestPath;
-    public Map<Graph.Vertex, Integer> shortestPath(Graph graph, String source) {
+    public Map<Graph.Vertex, Integer> shortestPath(Graph graph, String from, String to) {
 
-        Graph.Vertex sourceVertex = graph.getV(source);
+        Graph.Vertex sourceVertex = graph.getV(from);
+        Graph.Vertex destination = graph.getV(to);
 
         Graph.Vertex b = new Graph.Vertex("B");
         Graph.Vertex empty = new Graph.Vertex("NULL");
@@ -93,7 +94,7 @@ public class ShortestPath {
 
         //String name = parent.get(destination).name;// will give value then continue until reach sourcevertex
         //shortestPath(graph, destination, sourceVertex, parent, new LinkedHashSet<Graph.Vertex>());
-        Graph.Vertex destination = new Graph.Vertex("C");
+        //Graph.Vertex destination = new Graph.Vertex("C");
         discover(destination, sourceVertex, parent, new LinkedHashSet<Graph.Vertex>());
         return distance;
     }

@@ -267,7 +267,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
 
                 // Init search
                 ShortestPath searchForShortestPath = new ShortestPath();
-                Map<Graph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedGraph, startInput);
+                Map<Graph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedGraph, startInput, destinationInput);
 
                 // Get list of paths between start and destination
                 List<Graph.Vertex> path = searchForShortestPath.getPath();
