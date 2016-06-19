@@ -17,12 +17,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.hulldiscover.zeus.basicsatnavsystem.Adapter.ListAdapter;
+import com.hulldiscover.zeus.basicsatnavsystem.Adapter.ShortestPathListAdapter;
 import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
 import com.hulldiscover.zeus.basicsatnavsystem.Graph;
+import com.hulldiscover.zeus.basicsatnavsystem.Model.ShortestPath;
 import com.hulldiscover.zeus.basicsatnavsystem.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Zeus on 04/04/16.
@@ -33,12 +36,14 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
     EditText start;
     EditText destination;
     Button searchRoutes;
+    Button bestRoute;
     ImageButton reversePath;
     ImageButton transitMode;
     String startInput = "";
     String destinationInput = "";
     ListView listView;
     ListAdapter listAdapter;
+    ShortestPathListAdapter shortestPathListAdapter;
     AnimationDrawable carAnimation;
 
     // Animation
@@ -241,6 +246,58 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
 
 
 
+
+
+
+
+
+
+        bestRoute = (Button) findViewById(R.id.best_route_btn);
+        bestRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get inputs from screen
+                String startInput = start.getText().toString().toUpperCase();
+                String destinationInput = destination.getText().toString().toUpperCase();
+
+                // Validate inputs
+                if (!validate()) {
+                    return; // return is input invalid
+                }
+
+                // Init search
+                ShortestPath searchForShortestPath = new ShortestPath();
+                Map<Graph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedGraph, startInput);
+
+                // Get list of paths between start and destination
+                List<Graph.Vertex> path = searchForShortestPath.getPath();
+
+
+
+                // Display results
+                // 1) Loop through all results from search
+                // 2) Add them to a list
+                // 3) Path list into adapter
+                ArrayList<String> shortestPath = new ArrayList<String>();
+
+                // Add results to list
+                for(Graph.Vertex vertex : path) {
+                    shortestPath.add(vertex.name); // string representation
+                }
+
+                ArrayList<List<String>> paths = new ArrayList<List<String>>();
+                paths.add(shortestPath);
+
+                // Create ArrayAdapter using the planet list
+                shortestPathListAdapter = new ShortestPathListAdapter(Navigation.this, R.layout.listview_item, paths);
+
+                // Assign adapter to ListView
+                listView.setAdapter(shortestPathListAdapter);
+
+
+
+            }
+        });
 
 
 

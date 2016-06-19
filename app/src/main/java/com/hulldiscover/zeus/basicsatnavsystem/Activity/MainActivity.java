@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Vrtex Distance: " +sourceVertex.distance);
         System.out.println("Vertex neighbours : " +sourceVertex.neighbours.keySet());
 
-        Map<Graph.Vertex,Integer> distance = dsp.shortestPath(directedGraph, sourceVertex);
+        Map<Graph.Vertex,Integer> distance = dsp.shortestPath(directedGraph, "A");
         Set keys = distance.keySet();
 
         for (Iterator i = keys.iterator(); i.hasNext();)

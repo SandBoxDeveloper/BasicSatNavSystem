@@ -6,14 +6,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Zeus on 18/06/16.
  */
 public class ShortestPath {
-    public Map<Graph.Vertex, Integer> shortestPath(Graph graph, Graph.Vertex sourceVertex) {
+    LinkedList<Graph.Vertex> shortestPath;
+    public Map<Graph.Vertex, Integer> shortestPath(Graph graph, String source) {
 
+        Graph.Vertex sourceVertex = graph.getV(source);
 
         Graph.Vertex b = new Graph.Vertex("B");
         Graph.Vertex empty = new Graph.Vertex("NULL");
@@ -198,11 +201,26 @@ public class ShortestPath {
         while(itr.hasNext()) {
             Graph.Vertex v = itr.next();
             // do something
+            shortestPath = new LinkedList<>(path);
+            shortestPath.add(v);
             System.out.println(v.name + "");
         }
 
 
 
+    }
+
+    public List<Graph.Vertex> getPath() {
+        LinkedList<Graph.Vertex> shortest = new LinkedList<>();
+        LinkedList<Graph.Vertex> list = new LinkedList<>(shortestPath);
+        Iterator<Graph.Vertex> itr = list.descendingIterator();
+        while(itr.hasNext()) {
+            Graph.Vertex v = itr.next();
+            // do something
+
+            shortest.add(v);
+        }
+        return shortest;
     }
 
 
