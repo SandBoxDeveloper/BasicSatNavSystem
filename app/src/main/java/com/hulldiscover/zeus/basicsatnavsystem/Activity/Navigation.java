@@ -112,7 +112,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                     paths.add(pathNames);
                 }
 
-                // Create ArrayAdapter using the planet list
+                // Create ArrayAdapter using the paths list
                 listAdapter = new ListAdapter(Navigation.this, R.layout.listview_item, paths);
 
                 // Assign adapter to ListView
@@ -120,7 +120,6 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
 
             }
         });
-
 
 
         // Have to control if adapter is null,
@@ -150,6 +149,51 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
         });
 
 
+        // When Best Route button is clicked
+        // Find the shortest possible path between start and destination
+        bestRoute = (Button) findViewById(R.id.best_route_btn);
+        bestRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get inputs from screen
+                String startInput = start.getText().toString().toUpperCase();
+                String destinationInput = destination.getText().toString().toUpperCase();
+
+                // Validate inputs
+                if (!validate()) {
+                    return; // return is input invalid
+                }
+
+                // Init search
+                ShortestPath searchForShortestPath = new ShortestPath();
+                Map<Graph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedGraph, startInput, destinationInput);
+
+                // Get list of paths between start and destination
+                List<Graph.Vertex> path = searchForShortestPath.getPath();
+
+                // Create new list to store String representation of vertex in shortest path
+                ArrayList<String> shortestPath = new ArrayList<String>();
+
+                // Add vertex in path as a String
+                // to new list
+                for(Graph.Vertex vertex : path) {
+                    shortestPath.add(vertex.name); // string representation
+                }
+
+                // Create new list that contains list of shortest path
+                // to allow easy representation to the screen
+                ArrayList<List<String>> paths = new ArrayList<List<String>>();
+                paths.add(shortestPath);
+
+                // Create ArrayAdapter using the paths list
+                shortestPathListAdapter = new ShortestPathListAdapter(Navigation.this, R.layout.listview_item, paths);
+
+                // Assign adapter to ListView
+                listView.setAdapter(shortestPathListAdapter);
+
+            }
+        });
+
 
         // When reverse path button is clicked
         // Switch start and destination points
@@ -167,7 +211,6 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
         });
 
 
-
         // load the animation
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.move);
@@ -178,7 +221,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
         animFadein.setAnimationListener(this);
         animZoomin.setAnimationListener(this);
 
-        // button click event
+        // transit mode button click event
         transitMode = (ImageButton) findViewById(R.id.transport_icon);
         transitMode.setOnClickListener(new View.OnClickListener() {
 
@@ -245,65 +288,8 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
         });
 
 
-
-
-
-
-
-
-
-        bestRoute = (Button) findViewById(R.id.best_route_btn);
-        bestRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Get inputs from screen
-                String startInput = start.getText().toString().toUpperCase();
-                String destinationInput = destination.getText().toString().toUpperCase();
-
-                // Validate inputs
-                if (!validate()) {
-                    return; // return is input invalid
-                }
-
-                // Init search
-                ShortestPath searchForShortestPath = new ShortestPath();
-                Map<Graph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedGraph, startInput, destinationInput);
-
-                // Get list of paths between start and destination
-                List<Graph.Vertex> path = searchForShortestPath.getPath();
-
-
-
-                // Display results
-                // 1) Loop through all results from search
-                // 2) Add them to a list
-                // 3) Path list into adapter
-                ArrayList<String> shortestPath = new ArrayList<String>();
-
-                // Add results to list
-                for(Graph.Vertex vertex : path) {
-                    shortestPath.add(vertex.name); // string representation
-                }
-
-                ArrayList<List<String>> paths = new ArrayList<List<String>>();
-                paths.add(shortestPath);
-
-                // Create ArrayAdapter using the planet list
-                shortestPathListAdapter = new ShortestPathListAdapter(Navigation.this, R.layout.listview_item, paths);
-
-                // Assign adapter to ListView
-                listView.setAdapter(shortestPathListAdapter);
-
-
-
-            }
-        });
-
-
-
-
-
     }
+
 
     public boolean validate() {
         boolean valid = true;

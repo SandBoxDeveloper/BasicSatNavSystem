@@ -105,66 +105,19 @@ public class ShortestPath {
         return v1.equals(v) ? v2 : v1;
     }
 
-
-
-    public void find(Graph.Vertex current, Graph.Vertex destination, Map<Graph.Vertex, Graph.Vertex> parent, LinkedHashSet<Graph.Vertex> path) {
-        path.add(current);
-
-        if(current == destination) {
-            path.add(current);
-            return;
-        }
-
-        for (Map.Entry<Graph.Vertex, Graph.Vertex> entry : parent.entrySet())
-        {
-            Graph.Vertex e = entry.getKey();
-            Graph.Vertex v = entry.getValue();
-            Graph.Vertex start = parent.get(current);
-
-            if(!path.contains(start)) {
-                path.add(start);
-                find(start, destination, parent, path);
-            }
-
-            //System.out.println(entry.getKey() + "/" + entry.getValue());
-        }
-
-        /*for(int i = 0; i < parent.size(); i++) {
-            Graph.Vertex v = parent.get(i);
-            if(!path.contains(v)) {
-                path.add(v);
-                find(v, destination, parent, path);
-            }
-        }*/
-
-        //path.remove(current);
-    }
-
     // Get to C from A
     // Current = C
     // Source = A
     public void discover(Graph.Vertex current, Graph.Vertex source, Map<Graph.Vertex, Graph.Vertex> parent, LinkedHashSet<Graph.Vertex> path) {
         path.add(current);
 
-        if(current == source) { // C == A
+        if (current == source) { // C == A
             path.add(current);
-            // remove last node which will be null
+            // Add shortest path
+            // for later reference
+            addShortestPath(path);
             return;
         }
-
-        /*for (Map.Entry<Graph.Vertex, Graph.Vertex> entry : parent.entrySet())
-        {
-            Graph.Vertex e = entry.getKey();
-            Graph.Vertex v = entry.getValue();
-            System.out.println("Key: " +e.name + ", " + "Value: " +v.name);
-
-            //Graph.Vertex start = parent.get(current);
-            //System.out.println("Entry " +start);
-
-        }
-        //Graph.Vertex b = new Graph.Vertex("B");
-        System.out.println("Current " +parent.get(current).name);
-        System.out.println("Size " +parent.size());*/
 
         // Current  = C
         // Source/Destination = A
@@ -176,52 +129,44 @@ public class ShortestPath {
         // Get value of Key A from parent = null
         // stop when value = null
 
-        //final Set<Map.Entry<Graph.Vertex, Graph.Vertex>> edges = parent.entrySet();
 
-        //for (Map.Entry<Graph.Vertex, Graph.Vertex> v : edges)
-        //{
-            Graph.Vertex start = parent.get(current); // Get C, then B, then A -> to get null
+        Graph.Vertex start = parent.get(current); // Get C, then B, then A -> to get null
 
 
-            if(!path.contains(start)) { // B not in path, A not in path, null not in path
-                path.add(start); // Add B to path, Add A to path, Add null to path
-                discover(start, source, parent, path); // Update start to = B, and start method again
-                                                        // Update start = A, and start again
-                                                        // Update start = null, and start again
-            }
-
-
-
-        //}
-
-
-        //Iterator<Graph.Vertex> iterator = path.iterator();
-        System.out.println("Path");
-        LinkedList<Graph.Vertex> list = new LinkedList<>(path);
-        Iterator<Graph.Vertex> itr = list.descendingIterator();
-        while(itr.hasNext()) {
-            Graph.Vertex v = itr.next();
-            // do something
-            shortestPath = new LinkedList<>(path);
-            shortestPath.add(v);
-            System.out.println(v.name + "");
+        if (!path.contains(start)) { // B not in path, A not in path, null not in path
+            path.add(start); // Add B to path, Add A to path, Add null to path
+            discover(start, source, parent, path); // Update start to = B, and start method again
+            // Update start = A, and start again
+            // Update start = null, and start again
         }
 
 
+    }
 
+    public void addShortestPath(LinkedHashSet<Graph.Vertex> path) {
+        LinkedList<Graph.Vertex> list = new LinkedList<>(path);
+        Iterator<Graph.Vertex> itr = list.descendingIterator();
+        shortestPath = new LinkedList<>();
+        // Iterate through shortest path
+        // in descending order
+        while (itr.hasNext()) {
+            Graph.Vertex v = itr.next();
+            shortestPath.add(v);
+            System.out.println(v.name + "");
+        }
     }
 
     public List<Graph.Vertex> getPath() {
         LinkedList<Graph.Vertex> shortest = new LinkedList<>();
         LinkedList<Graph.Vertex> list = new LinkedList<>(shortestPath);
+        // Iterate through shortest path
+        // in descending order
         Iterator<Graph.Vertex> itr = list.descendingIterator();
         while(itr.hasNext()) {
             Graph.Vertex v = itr.next();
-            // do something
-
             shortest.add(v);
         }
-        return shortest;
+        return shortestPath;
     }
 
 
