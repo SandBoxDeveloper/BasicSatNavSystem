@@ -45,7 +45,6 @@ public class Graph {
         public final String vertex1;
         public final String vertex2;
         public final int distance;
-        private boolean isVisited;
 
         /** Constructor
          * Creates an edge in a graph
@@ -60,6 +59,40 @@ public class Graph {
             this.vertex1 = vertex1;
             this.vertex2 = vertex2;
             this.distance = distance;
+        }
+
+        public int getDistance(){
+            return distance;
+        }
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((vertex1 == null) ? 0 : vertex1.hashCode());
+            result = prime * result + ((vertex2 == null) ? 0 : vertex2.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Edge other = (Edge) obj;
+            if (vertex1 == null) {
+                if (other.vertex1 != null)
+                    return false;
+            } else if (!vertex1.equals(other.vertex1))
+                return false;
+            if (vertex2 == null) {
+                if (other.vertex2 != null)
+                    return false;
+            } else if (!vertex2.equals(other.vertex2))
+                return false;
+            return true;
         }
 
     }
@@ -82,6 +115,8 @@ public class Graph {
         private Vertex predecessor = null;
         private boolean isOpen;
         public final Map<Vertex, Integer> neighbours = new HashMap<>();
+        private List<Vertex> adjacentVertex = new ArrayList<>();
+        private List<Edge> edges = new ArrayList<>();
 
 
         /** Constructor
@@ -94,6 +129,40 @@ public class Graph {
             this.name = name;
         }
 
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((name == null) ? 0 : name.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Vertex other = (Vertex) obj;
+            if (name != other.name)
+                return false;
+            return true;
+        }
+
+        public void addAdjacentVertex(Edge e, Vertex v){
+            edges.add(e);
+            adjacentVertex.add(v);
+        }
+
+        public List<Vertex> getAdjacentVertexes(){
+            return adjacentVertex;
+        }
+
+        public List<Edge> getEdges(){
+            return edges;
+        }
 
         public boolean isVisited() {
             return isVisited;
@@ -218,7 +287,8 @@ public class Graph {
         for (Edge e : edges) {
             // neighbours of vertices
             graph.get(e.vertex1).neighbours.put(graph.get(e.vertex2), e.distance);
-            //graph.get(e.v2).neighbours.put(graph.get(e.v1), e.dist); // also do this for an undirected graph
+            graph.get(e.vertex1).addAdjacentVertex(e, getV(e.vertex2));
+            //graph.get(e.vertex2).neighbours.put(graph.get(e.vertex1), e.distance); // also do this for an undirected graph
         }
     }
 
@@ -235,6 +305,7 @@ public class Graph {
         return graph.get(v);
     }
 
+
     /**
      * Method throw an exception if
      * parameter is not a vertex
@@ -244,7 +315,7 @@ public class Graph {
      */
     private void validateVertex(String vertex) {
         if (!graphHasVertex(vertex)) {
-            throw new IllegalArgumentException(vertex + " is not a vertex");
+            System.out.print(vertex + " is not a vertex");
         }
     }
 
@@ -417,6 +488,8 @@ public class Graph {
     public int numberOfEdges() {
         return edgesCount;
     }
+
+    public Edge[] edges() { return edges; }
 
     /** Prints a path from the source to the specified vertex */
     public void printPath(String endName) {

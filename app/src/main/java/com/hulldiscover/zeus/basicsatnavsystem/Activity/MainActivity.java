@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
+import com.hulldiscover.zeus.basicsatnavsystem.Calculator.RoutePathLength;
 import com.hulldiscover.zeus.basicsatnavsystem.Graph;
+import com.hulldiscover.zeus.basicsatnavsystem.Model.ShortestPath;
 import com.hulldiscover.zeus.basicsatnavsystem.PathFinder;
 import com.hulldiscover.zeus.basicsatnavsystem.R;
-import com.hulldiscover.zeus.basicsatnavsystem.Calculator.RoutePathLength;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +30,23 @@ public class MainActivity extends AppCompatActivity {
         int edgesSize = directedGraph.numberOfEdges();
         System.out.println("Number of vertices: " +verticesSize);
         System.out.println("Number of edges: " +edgesSize);
+
+        ShortestPath dsp = new ShortestPath();
+        Graph.Vertex sourceVertex = directedGraph.getV("A");
+        System.out.println("Vertex: " +sourceVertex.name);
+        System.out.println("Vrtex Distance: " +sourceVertex.distance);
+        System.out.println("Vertex neighbours : " +sourceVertex.neighbours.keySet());
+
+        Map<Graph.Vertex,Integer> distance = dsp.shortestPath(directedGraph, sourceVertex);
+        Set keys = distance.keySet();
+
+        for (Iterator i = keys.iterator(); i.hasNext();)
+        {
+            Graph.Vertex key = (Graph.Vertex) i.next();
+            int value =  distance.get(key);
+            System.out.println("Distance: " +key.name+ " : " +value);
+        }
+        //System.out.print("Distance: " +distance.);*/
 
         Graph.Vertex a = new Graph.Vertex("A");
         Graph.Vertex d = new Graph.Vertex("D");
