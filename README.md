@@ -11,7 +11,7 @@ The app can:
 # Video 
 
 <a href="https://youtu.be/B_ayAbobFAs" target="_blank"><img src="https://github.com/SandBoxDeveloper/BasicSatNavSystem/blob/master/Screen%20Shot%202016-06-20%20at%2010.33.00.png?raw=true" 
-alt="Screen Shot" width="240" height="180" border="10" /></a>
+alt="Screen Shot" width="640" height="380" border="10" /></a>
 
 # How to Test
 
