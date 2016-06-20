@@ -7,6 +7,8 @@ The app can:
 - Get the distance of a route 
 - Find the shortest routes between two points 
 - Find all possible routes between two points
+
+NOTE: THE APPLICATION ONLY ACCEPTS CHARACTERS - 'A' 'B' 'C' 'D' 'E' AS INPUTS.
  
 # Video 
 
