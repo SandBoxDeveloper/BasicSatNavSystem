@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
 import com.hulldiscover.zeus.basicsatnavsystem.Calculator.RoutePathLength;
-import com.hulldiscover.zeus.basicsatnavsystem.Graph;
+import com.hulldiscover.zeus.basicsatnavsystem.DirectedGraph;
 import com.hulldiscover.zeus.basicsatnavsystem.Model.ShortestPath;
 import com.hulldiscover.zeus.basicsatnavsystem.PathFinder;
 import com.hulldiscover.zeus.basicsatnavsystem.R;
@@ -25,45 +25,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // setup and init directed graph
-        Graph directedGraph = new Graph(GRAPH);
-        int verticesSize = directedGraph.numberOfVertices();
-        int edgesSize = directedGraph.numberOfEdges();
+        DirectedGraph directedDirectedGraph = new DirectedGraph(GRAPH);
+        int verticesSize = directedDirectedGraph.numberOfVertices();
+        int edgesSize = directedDirectedGraph.numberOfEdges();
         System.out.println("Number of vertices: " +verticesSize);
         System.out.println("Number of edges: " +edgesSize);
 
         ShortestPath dsp = new ShortestPath();
-        Graph.Vertex sourceVertex = directedGraph.getV("A");
+        DirectedGraph.Vertex sourceVertex = directedDirectedGraph.getV("A");
         System.out.println("Vertex: " +sourceVertex.name);
         System.out.println("Vrtex Distance: " +sourceVertex.distance);
         System.out.println("Vertex neighbours : " +sourceVertex.neighbours.keySet());
 
-        Map<Graph.Vertex,Integer> distance = dsp.shortestPath(directedGraph, "A", "D");
+        Map<DirectedGraph.Vertex,Integer> distance = dsp.shortestPath(directedDirectedGraph, "A", "D");
         Set keys = distance.keySet();
 
         for (Iterator i = keys.iterator(); i.hasNext();)
         {
-            Graph.Vertex key = (Graph.Vertex) i.next();
+            DirectedGraph.Vertex key = (DirectedGraph.Vertex) i.next();
             int value =  distance.get(key);
             System.out.println("Distance: " +key.name+ " : " +value);
         }
         //System.out.print("Distance: " +distance.);*/
 
-        Graph.Vertex a = new Graph.Vertex("A");
-        Graph.Vertex d = new Graph.Vertex("D");
-        directedGraph.breadthFirstSearch(a);
-        directedGraph.pathString(a,d);
+        DirectedGraph.Vertex a = new DirectedGraph.Vertex("A");
+        DirectedGraph.Vertex d = new DirectedGraph.Vertex("D");
+        directedDirectedGraph.pathString(a,d);
 
-        directedGraph.dijkstra("C");
-        //directedGraph.printPath("C");
-        //directedGraph.printAllPaths();
+        directedDirectedGraph.dijkstra("C");
+        //directedDirectedGraph.printPath("C");
+        //directedDirectedGraph.printAllPaths();
 
-        /*Graph.Vertex v = new Graph.Vertex("A");
-        boolean isCycle = directedGraph.isCyclicDirected(v);
-        boolean hasSelfLoop = directedGraph.hasSelfLoop("C");
+        /*DirectedGraph.Vertex v = new DirectedGraph.Vertex("A");
+        boolean isCycle = directedDirectedGraph.isCyclicDirected(v);
+        boolean hasSelfLoop = directedDirectedGraph.hasSelfLoop("C");
         System.out.println("Self Loop " +hasSelfLoop);
         System.out.println("Cycle" +isCycle);
 
-        DirectedCycle finder = new DirectedCycle(directedGraph);
+        DirectedCycle finder = new DirectedCycle(directedDirectedGraph);
         if (finder.hasCycle()) {
             System.out.println("Directed cycle: ");
             for (String vo : finder.cycle()) {
@@ -78,26 +77,26 @@ public class MainActivity extends AppCompatActivity {
         System.out.println();
 
 
-        directedGraph.printVerticesAdjacentTo("A");
-        directedGraph.printVerticesAdjacentTo("B");
-        directedGraph.printVerticesAdjacentTo("E");
+        directedDirectedGraph.printVerticesAdjacentTo("A");
+        directedDirectedGraph.printVerticesAdjacentTo("B");
+        directedDirectedGraph.printVerticesAdjacentTo("E");
 
-        boolean is = directedGraph.isAdjacentTo("A", "B");
+        boolean is = directedDirectedGraph.isAdjacentTo("A", "B");
         System.out.println(is);
 
-        int dis = directedGraph.getDistance("A", "D");
+        int dis = directedDirectedGraph.getDistance("A", "D");
         System.out.println(dis);
 
-        directedGraph.printPath("C");
+        directedDirectedGraph.printPath("C");
 
         // Init PathFinder
-        PathFinder pathFinder = new PathFinder(directedGraph, "A");
+        PathFinder pathFinder = new PathFinder(directedDirectedGraph, "A");
         boolean hasPath = pathFinder.hasPathTo("C");
         int distanceTo = pathFinder.distanceTo("A", "D");
         System.out.println("HasPath?: " +hasPath);
         System.out.println("Distance to: " +distanceTo);
 
-        BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedGraph);
+        BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
         List<List<String>> paths = new ArrayList<List<String>>();
 
 
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // act
-        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, path1);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedDirectedGraph, path1);
         System.out.println("Path1" + routeLength);
 
         List<List<String>> pathList = findAllPaths.getAllPaths("A","D");
@@ -151,16 +150,16 @@ public class MainActivity extends AppCompatActivity {
      * Method to setup graph
      * with its associated edges.
      */
-    private static final Graph.Edge[] GRAPH = {
-            new Graph.Edge("A", "B", 5),
-            new Graph.Edge("B", "C", 4),
-            new Graph.Edge("C", "D", 7),
-            new Graph.Edge("D", "C", 8),
-            new Graph.Edge("D", "E", 6),
-            new Graph.Edge("A", "D", 5),
-            new Graph.Edge("C", "E", 2),
-            new Graph.Edge("E", "B", 3),
-            new Graph.Edge("A", "E", 7),
+    private static final DirectedGraph.Edge[] GRAPH = {
+            new DirectedGraph.Edge("A", "B", 5),
+            new DirectedGraph.Edge("B", "C", 4),
+            new DirectedGraph.Edge("C", "D", 7),
+            new DirectedGraph.Edge("D", "C", 8),
+            new DirectedGraph.Edge("D", "E", 6),
+            new DirectedGraph.Edge("A", "D", 5),
+            new DirectedGraph.Edge("C", "E", 2),
+            new DirectedGraph.Edge("E", "B", 3),
+            new DirectedGraph.Edge("A", "E", 7),
     };
 
 }

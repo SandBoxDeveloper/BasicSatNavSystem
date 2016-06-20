@@ -10,10 +10,11 @@ import org.junit.runners.Suite;
 // Runs all unit tests.
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        GraphUnitTest.class,
+        DirectedGraphUnitTest.class,
         GraphHasVertex.class,
         PathFinder.class,
-        RouteLengthTest.class})
+        RouteLengthTest.class,
+        ShortestPathTest.class})
 
 public class UnitTestSuite {}
 

@@ -16,12 +16,12 @@ public class DijkstraShortestPath {
 
     private final TreeMap<String, String> previous = new TreeMap<String, String>();
     private final TreeMap<String, Integer> distance = new TreeMap<String, Integer>();
-    Graph.Edge[] edges;
+    DirectedGraph.Edge[] edges;
 
-    public void computePath(Graph grap, Graph.Vertex source) {
+    public void computePath(DirectedGraph grap, DirectedGraph.Vertex source) {
         //source.minimumDistance = 0;
         // Put source of vertex on queue
-        Queue<Graph.Vertex> queue = new PriorityQueue<Graph.Vertex>();
+        Queue<DirectedGraph.Vertex> queue = new PriorityQueue<DirectedGraph.Vertex>();
         // Enqueuing
         queue.add(source);
 
@@ -29,10 +29,10 @@ public class DijkstraShortestPath {
         // all its neighbors, provided they haven't yet been visited
         while(!queue.isEmpty()) {
             // Dequeuing
-            Graph.Vertex vertex = queue.remove();
+            DirectedGraph.Vertex vertex = queue.remove();
 
             // Visit each edge (path) exiting vertex
-            for(Graph.Vertex neighbours : grap.adjacentTo(vertex.name)) {
+            for(DirectedGraph.Vertex neighbours : grap.adjacentTo(vertex.name)) {
                 if (!distance.containsValue(neighbours)) {
                     queue.add(neighbours);
                     distance.put(neighbours.name, 1 + distance.get(vertex));

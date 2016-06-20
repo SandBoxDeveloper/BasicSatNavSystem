@@ -21,21 +21,21 @@ public class DijkstraShortestPathTest {
     public static final String D = "D";
     public static final String E = "E";
 
-    // Graph Edges
-    private static final Graph.Edge[] GRAPH = {
-            new Graph.Edge(A, B, 5),
-            new Graph.Edge(B, C, 4),
-            new Graph.Edge(C, D, 7),
-            new Graph.Edge(D, C, 8),
-            new Graph.Edge(D, E, 6),
-            new Graph.Edge(A, D, 5),
-            new Graph.Edge(C, E, 2),
-            new Graph.Edge(E, B, 3),
-            new Graph.Edge(A, E, 7),
+    // DirectedGraph Edges
+    private static final DirectedGraph.Edge[] GRAPH = {
+            new DirectedGraph.Edge(A, B, 5),
+            new DirectedGraph.Edge(B, C, 4),
+            new DirectedGraph.Edge(C, D, 7),
+            new DirectedGraph.Edge(D, C, 8),
+            new DirectedGraph.Edge(D, E, 6),
+            new DirectedGraph.Edge(A, D, 5),
+            new DirectedGraph.Edge(C, E, 2),
+            new DirectedGraph.Edge(E, B, 3),
+            new DirectedGraph.Edge(A, E, 7),
     };
 
-    // Graph
-    Graph directedGraph;
+    // DirectedGraph
+    DirectedGraph directedDirectedGraph;
 
     // Path Finder
     PathFinder pathFinder;
@@ -51,14 +51,14 @@ public class DijkstraShortestPathTest {
      * */
     @Before
     public void setUp() {
-        // Init Graph
-        directedGraph = new Graph(GRAPH);
+        // Init DirectedGraph
+        directedDirectedGraph = new DirectedGraph(GRAPH);
 
         // Init PathFinder
-        pathFinder = new PathFinder(directedGraph, "A");
+        pathFinder = new PathFinder(directedDirectedGraph, "A");
 
         // Init search
-        findAllPaths = new BreadthFirstPaths(directedGraph);
+        findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
 
         // Init search for shortest path
         shortestPath = new DijkstraShortestPath();

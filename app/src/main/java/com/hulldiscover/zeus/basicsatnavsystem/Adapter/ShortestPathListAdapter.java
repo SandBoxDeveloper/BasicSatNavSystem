@@ -29,12 +29,15 @@ public class ShortestPathListAdapter extends ArrayAdapter {
 
         View row;
         row = convertView;
-        final ViewHolder viewHolder;
 
+        // Check if an existing view is being reused, otherwise inflate the view
+        final ViewHolder viewHolder; // view lookup cache stored in tag
         if(row == null) {
             LayoutInflater layoutInflater = (LayoutInflater)this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = layoutInflater.inflate(R.layout.listview_item, parent, false);
             viewHolder = new ViewHolder();
+
+            // Lookup view for data population
             viewHolder.route = (TextView) row.findViewById(R.id.route_path);
 
             row.setTag(viewHolder);
@@ -44,10 +47,13 @@ public class ShortestPathListAdapter extends ArrayAdapter {
             viewHolder = (ViewHolder)row.getTag();
         }
 
+        // Get the data item for this position
         List<String> item = (List<String>)this.getItem(position);
 
+        // Populate the data into the template view using the data object
         viewHolder.route.setText(context.getResources().getString(R.string.list_route_label) +item.toString());
 
+        // Return the completed view to render on screen
         return row;
     }
 

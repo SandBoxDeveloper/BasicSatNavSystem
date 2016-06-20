@@ -11,7 +11,7 @@
     <string name="start">Start Point</string>
     <string name="destination">Destination</string>
     <string name="search_btn">-> Search routes</string>
-    <string name="bestroute_btn">Best route</string>
+    <string name="bestRoute_btn">Best route</string>
     <string name="route">Route</string>
     <string name="list_route_label">"Route: "</string>
     <string name="cancel">Cancel</string>

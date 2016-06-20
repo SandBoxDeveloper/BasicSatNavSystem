@@ -15,9 +15,9 @@ public class PathFinder {
 
     private final TreeMap<String, String> previous = new TreeMap<String, String>();
     private final TreeMap<String, Integer> distance = new TreeMap<String, Integer>();
-    Graph.Edge[] edges;
+    DirectedGraph.Edge[] edges;
 
-    public PathFinder (Graph graph, String source) {
+    public PathFinder (DirectedGraph directedGraph, String source) {
         // Put source of vertex on queue
         Queue<String> queue = new PriorityQueue<String>();
         // Enqueuing
@@ -30,7 +30,7 @@ public class PathFinder {
             // Dequeuing
             String v = queue.remove();
             // Loop through vertex neighbours
-            for(Graph.Vertex s : graph.setOfVerticesAdjacentTo(v)) {
+            for(DirectedGraph.Vertex s : directedGraph.setOfVerticesAdjacentTo(v)) {
                 if(!distance.containsValue(s.name)) {
                     queue.remove(s);
                     distance.put(s.name, 1 + distance.get(v));
@@ -39,7 +39,7 @@ public class PathFinder {
             }
         }
 
-        edges = graph.edges;
+        edges = directedGraph.edges;
 
     }
 
@@ -51,7 +51,7 @@ public class PathFinder {
         if(!hasPathTo(v)) return Integer.MAX_VALUE;
 
         int dis = 0;
-        for (Graph.Edge edge : edges) {
+        for (DirectedGraph.Edge edge : edges) {
             if (edge.vertex1.equals(v)
                     && edge.vertex2.equals(d)) {
                 dis = edge.distance;
@@ -70,7 +70,7 @@ public class PathFinder {
     // online Dictionary of Algorithms and Data Structures lists
     // this problem as "all simple paths" and recommends a depth-first search.
 
-    public void findPath(Graph graph, String s, String d) {
+    public void findPath(DirectedGraph directedGraph, String s, String d) {
        LinkedList<String> path = new LinkedList<String>(); // current path
         LinkedList<String> vertexOnPath = new LinkedList<String>(); // set of vertices on path
         /*Add [c] to tail end of list [p]
@@ -82,15 +82,15 @@ public class PathFinder {
         11     Next For
         12     Remove tail from [p]*/
 
-        Set<Graph.Vertex> vertexSet = graph.setOfVerticesAdjacentTo(s);
+        Set<DirectedGraph.Vertex> vertexSet = directedGraph.setOfVerticesAdjacentTo(s);
         path.addLast(s);
-        for(Graph.Vertex v : vertexSet) {
+        for(DirectedGraph.Vertex v : vertexSet) {
             if(v.equals(d)) {
                 vertexOnPath.add(path.element());
                 System.out.println(path);
             }
             else if (!path.contains(v)) {
-                //findPath(graph, v.name, d);
+                //findPath(directedGraph, v.name, d);
             }
         }
         path.removeLast();

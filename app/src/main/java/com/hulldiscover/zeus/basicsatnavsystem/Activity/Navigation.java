@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.hulldiscover.zeus.basicsatnavsystem.Adapter.ListAdapter;
 import com.hulldiscover.zeus.basicsatnavsystem.Adapter.ShortestPathListAdapter;
 import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
-import com.hulldiscover.zeus.basicsatnavsystem.Graph;
+import com.hulldiscover.zeus.basicsatnavsystem.DirectedGraph;
 import com.hulldiscover.zeus.basicsatnavsystem.Model.ShortestPath;
 import com.hulldiscover.zeus.basicsatnavsystem.R;
 
@@ -56,7 +56,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
         setContentView(R.layout.activity_main);
 
         // setup and init directed graph
-        final Graph directedGraph = new Graph(GRAPH);
+        final DirectedGraph directedDirectedGraph = new DirectedGraph(GRAPH);
 
         // Get a reference to the editText in the layout
         start = (EditText) findViewById(R.id.start);
@@ -90,7 +90,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                 }
 
                 // Init search
-                BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedGraph);
+                BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
 
                 // Get inputs from screen
                 String startInput = start.getText().toString().toUpperCase();
@@ -166,17 +166,17 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
 
                 // Init search
                 ShortestPath searchForShortestPath = new ShortestPath();
-                Map<Graph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedGraph, startInput, destinationInput);
+                Map<DirectedGraph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedDirectedGraph, startInput, destinationInput);
 
                 // Get list of paths between start and destination
-                List<Graph.Vertex> path = searchForShortestPath.getPath();
+                List<DirectedGraph.Vertex> path = searchForShortestPath.getPath();
 
                 // Create new list to store String representation of vertex in shortest path
                 ArrayList<String> shortestPath = new ArrayList<String>();
 
                 // Add vertex in path as a String
                 // to new list
-                for(Graph.Vertex vertex : path) {
+                for(DirectedGraph.Vertex vertex : path) {
                     shortestPath.add(vertex.name); // string representation
                 }
 
@@ -291,6 +291,13 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
     }
 
 
+    /**
+     * Validate inputs
+     *
+     * @return
+     *         <pp>true if inputs are valid.</pp>
+     *         <pp>false if inputs are invalid.</pp>
+     */
     public boolean validate() {
         boolean valid = true;
 
@@ -352,16 +359,16 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
      * Method to setup graph
      * with its associated edges.
      */
-    private static final Graph.Edge[] GRAPH = {
-            new Graph.Edge("A", "B", 5),
-            new Graph.Edge("B", "C", 4),
-            new Graph.Edge("C", "D", 7),
-            new Graph.Edge("D", "C", 8),
-            new Graph.Edge("D", "E", 6),
-            new Graph.Edge("A", "D", 5),
-            new Graph.Edge("C", "E", 2),
-            new Graph.Edge("E", "B", 3),
-            new Graph.Edge("A", "E", 7),
+    private static final DirectedGraph.Edge[] GRAPH = {
+            new DirectedGraph.Edge("A", "B", 5),
+            new DirectedGraph.Edge("B", "C", 4),
+            new DirectedGraph.Edge("C", "D", 7),
+            new DirectedGraph.Edge("D", "C", 8),
+            new DirectedGraph.Edge("D", "E", 6),
+            new DirectedGraph.Edge("A", "D", 5),
+            new DirectedGraph.Edge("C", "E", 2),
+            new DirectedGraph.Edge("E", "B", 3),
+            new DirectedGraph.Edge("A", "E", 7),
     };
 
 

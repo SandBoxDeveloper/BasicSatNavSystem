@@ -23,21 +23,21 @@ public class ShortestPathTest {
     public static final String D = "D";
     public static final String E = "E";
 
-    // Graph Edges
-    private static final Graph.Edge[] GRAPH = {
-            new Graph.Edge(A, B, 5),
-            new Graph.Edge(B, C, 4),
-            new Graph.Edge(C, D, 7),
-            new Graph.Edge(D, C, 8),
-            new Graph.Edge(D, E, 6),
-            new Graph.Edge(A, D, 5),
-            new Graph.Edge(C, E, 2),
-            new Graph.Edge(E, B, 3),
-            new Graph.Edge(A, E, 7),
+    // DirectedGraph Edges
+    private static final DirectedGraph.Edge[] GRAPH = {
+            new DirectedGraph.Edge(A, B, 5),
+            new DirectedGraph.Edge(B, C, 4),
+            new DirectedGraph.Edge(C, D, 7),
+            new DirectedGraph.Edge(D, C, 8),
+            new DirectedGraph.Edge(D, E, 6),
+            new DirectedGraph.Edge(A, D, 5),
+            new DirectedGraph.Edge(C, E, 2),
+            new DirectedGraph.Edge(E, B, 3),
+            new DirectedGraph.Edge(A, E, 7),
     };
 
-    // Graph
-    Graph directedGraph;
+    // DirectedGraph
+    DirectedGraph directedDirectedGraph;
 
     // Path Search
     BreadthFirstPaths findAllPaths;
@@ -52,11 +52,11 @@ public class ShortestPathTest {
      * */
     @Before
     public void setUp() {
-        // Init Graph
-        directedGraph = new Graph(GRAPH);
+        // Init DirectedGraph
+        directedDirectedGraph = new DirectedGraph(GRAPH);
 
         // Init search
-        findAllPaths = new BreadthFirstPaths(directedGraph);
+        findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
 
         // Init shortest path search
         searchForShortestPath = new ShortestPath();
@@ -83,13 +83,13 @@ public class ShortestPathTest {
         String startPoint = "A";
         String destination = "C";
 
-        Graph.Vertex C = new Graph.Vertex("C");
+        DirectedGraph.Vertex C = new DirectedGraph.Vertex("C");
 
         // Find shortest route
-        Map<Graph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedGraph, startPoint, destination);
+        Map<DirectedGraph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedDirectedGraph, startPoint, destination);
 
         // Get the shortest path as list
-        List<Graph.Vertex> path = searchForShortestPath.getPath();
+        List<DirectedGraph.Vertex> path = searchForShortestPath.getPath();
 
         // Create new list to store String representation
         // of vertex points found in shortest path
@@ -97,7 +97,7 @@ public class ShortestPathTest {
 
         // Add vertex points in path
         // as a String to new list
-        for(Graph.Vertex vertex : path) {
+        for(DirectedGraph.Vertex vertex : path) {
             shortestPath.add(vertex.name); // string representation
         }
 
@@ -105,8 +105,8 @@ public class ShortestPathTest {
         actualDistance += discoveredRoute.get(C);
         System.out.println("Distance is " +actualDistance);
 
-        /*for (Map.Entry<Graph.Vertex, Integer> route : discoveredRoute.entrySet()) {
-            Graph.Vertex key = route.getKey();
+        /*for (Map.Entry<DirectedGraph.Vertex, Integer> route : discoveredRoute.entrySet()) {
+            DirectedGraph.Vertex key = route.getKey();
             Integer value = route.getValue();
             System.out.println(key.name + " : "  +value);
         }*/
@@ -133,10 +133,10 @@ public class ShortestPathTest {
         String destination = "C";
 
         // Find shortest route
-        Map<Graph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedGraph, startPoint, destination);
+        Map<DirectedGraph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedDirectedGraph, startPoint, destination);
 
         // Get the shortest path as list
-        List<Graph.Vertex> path = searchForShortestPath.getPath();
+        List<DirectedGraph.Vertex> path = searchForShortestPath.getPath();
 
         // Create new list to store String representation
         // of vertex points found in shortest path
@@ -144,7 +144,7 @@ public class ShortestPathTest {
 
         // Add vertex points in path
         // as a String to new list
-        for(Graph.Vertex vertex : path) {
+        for(DirectedGraph.Vertex vertex : path) {
             shortestPath.add(vertex.name); // string representation
         }
 

@@ -1,10 +1,8 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableSet;
@@ -16,7 +14,7 @@ import java.util.TreeSet;
 /**
  * Created by Zeus on 12/06/16.
  */
-public class Graph {
+public class DirectedGraph {
     // graph
     private final Map<String, Vertex> graph; // mapping of vertex names to Vertex objects, built from a set of Edges
 
@@ -257,7 +255,7 @@ public class Graph {
      *
      * @param edges an array of edges
      */
-    public Graph(Edge[] edges) {
+    public DirectedGraph(Edge[] edges) {
         // Init graph to length of edges array
         graph = new HashMap<>(edges.length);
         edgesCount = edges.length;
@@ -494,7 +492,7 @@ public class Graph {
     /** Prints a path from the source to the specified vertex */
     public void printPath(String endName) {
         if (!graph.containsKey(endName)) {
-            System.err.printf("Graph doesn't contain end vertex \"%s\"\n", endName);
+            System.err.printf("DirectedGraph doesn't contain end vertex \"%s\"\n", endName);
             return;
         }
 
@@ -550,50 +548,10 @@ public class Graph {
     }
 
 
-
-   /* public static boolean hasCycle(Graph graph) {
-        if (graph == null || graph.size() == 0) return false;
-        Collection<Vertex> vertexCollect = graph.;
-        Queue<Vertex> q; // Queue will store vertices that have in-degree of zero
-        long counter = 0;
-   *//* Calculate the in-degree of all vertices and store on the Vertex *//*
-        for (Vertex v : vertexCollect)
-            v.inDegree = 0;
-        for (Vertex v : vertexCollect) {
-            for (Edge edge : v.outEdges())
-                edge.dest().inDegree++;
-        }
-   *//* Find all vertices with in-degree == 0 and put in queue *//*
-        q = new LinkedList<Vertex>();
-        for (Vertex v : vertexCollect) {
-            if (v.inDegree == 0)
-                q.offer(v);
-        }
-        if (q.size() == 0) {
-            return true; // Cycle found – all vertices have in-bound edges
-   *//* Traverse the queue counting Vertices visited *//*
-            for (counter = 0; !q.isEmpty(); counter++) {
-                Vertex v = q.poll();
-                for (Edge e : v.outEdges()) {
-                    Vertex w = e.dest();
-                    if (–w.inDegree == 0){
-                        q.offer(w);
-                    }
-                }
-            }
-            if (counter != vertexCollect.size()) {
-                return true;  //Cycle found
-            }
-            return false;
-        }
-    }*/
-
-
-
         /** Runs dijkstra using a specified source vertex */
     public void dijkstra(String startName) {
         if (!graph.containsKey(startName)) {
-            System.err.printf("Graph doesn't contain start vertex \"%s\"\n", startName);
+            System.err.printf("DirectedGraph doesn't contain start vertex \"%s\"\n", startName);
             return;
         }
         final Vertex source = graph.get(startName);
@@ -610,15 +568,15 @@ public class Graph {
     }
 
     /** Implementation of dijkstra's algorithm using a binary heap. */
-    private NavigableSet<Graph.Vertex>dijkstra(final NavigableSet<Graph.Vertex> q) {
-        Graph.Vertex u, v;
+    private NavigableSet<DirectedGraph.Vertex>dijkstra(final NavigableSet<DirectedGraph.Vertex> q) {
+        DirectedGraph.Vertex u, v;
         while (!q.isEmpty()) {
 
             u = q.pollFirst(); // vertex with shortest distance (first iteration will return source)
             if (u.distance == Integer.MAX_VALUE) break; // we can ignore u (and any other remaining vertices) since they are unreachable
 
             //look at distances to each neighbour
-            for (Map.Entry<Graph.Vertex, Integer> a : u.neighbours.entrySet()) {
+            for (Map.Entry<DirectedGraph.Vertex, Integer> a : u.neighbours.entrySet()) {
                 v = a.getKey(); //the neighbour in this iteration
 
                 final int alternateDist = u.distance + a.getValue();
@@ -634,14 +592,19 @@ public class Graph {
     }
 
 
-
+    /**
+     * Function to return the distance
+     * between two vertices.
+     *
+     * @param
+     *          startName vertex
+     * @param
+     *          endName vertex
+     * @return
+     *          distance between vertices
+     */
     public int getDistance(String startName, String endName) {
         int distance = 0;
-        /*if(graph.containsKey(startName)) {
-             distance = graph.get(startName).distance;
-        } else {
-            System.err.printf("Graph doesn't contain vertex");
-        }*/
 
         for (Edge edge : edges) {
             if (edge.vertex1.equals(startName)
@@ -675,91 +638,12 @@ public class Graph {
     }
 
     //TODO: Class called PathTO using BreadthFirstSearch Algorithim
-    // PathFinder(Graph G, String s) constructor
+    // PathFinder(DirectedGraph G, String s) constructor
     // int distanceTo(String v) length of shortest path of s to v in G
     // Interable<String> pathTo(String v) shortest path from s to v in G
 
-    /**
-     * Performs a breadth-first search of this graph from a given starting vertex.
-     * For each vertex that is reachable from the start, this operation computes
-     * its distance from the start and its predecessor on the search path.
-     * @param start The start vertex
-     */
-    public void breadthFirstSearch(Vertex start) {
 
-        DequeAdder tailAdder = new DequeAdder() {
-            public void add(Vertex vertex, Deque<Vertex> deque) {
-                deque.addLast(vertex);
-            }
-        };
 
-        search(start, tailAdder);
-    }
-
-    /**
-     * The core search operation for this graph.
-     * It uses a double-ended queue so that either breadth-first or
-     * depth-first search can be performed depending on to which end of
-     * the queue newly discovered vertices are added.
-     * @param start The start vertex for the search
-     * @param adder A purely functional object that adds to either the
-     * head or tail of a double-ended queue
-     */
-    private void search(Vertex start, DequeAdder adder) {
-        searchInit();
-        start.setOpen(false);
-        start.setDistance(0);
-        Deque<Vertex> deque = new LinkedList<Vertex>();
-        deque.add(start);
-        while ( !deque.isEmpty() ) {
-            Vertex v = deque.remove();
-            List<Vertex> adjList = verticesAdjacentTo(v);
-            if ( adjList != null ) {
-                Iterator iter = adjList.iterator();
-                while ( iter.hasNext() ) {
-                    Vertex successor = (Vertex) iter.next();
-                    if (successor.isOpen() ) {
-                        successor.setOpen(false);
-                        successor.setDistance(v.getDistance()+1);
-                        successor.setPredecessor(v);
-                        adder.add(successor, deque);
-                    }
-                }
-            }
-        }
-    }
-
-    public class DequeAdder {
-
-        void add(Vertex vertex, Deque<Vertex> deque) {
-            DequeAdder tailAdder = new DequeAdder() {
-                public void add(Vertex vertex, Deque<Vertex> deque) {
-                    deque.addLast(vertex);
-                }
-            };
-
-            DequeAdder headAdder = new DequeAdder() {
-                public void add(Vertex vertex, Deque<Vertex> deque) {
-                    deque.addFirst(vertex);
-                }
-            };
-        }
-    }
-
-    /**
-     * An initializing operation for the core search operation.
-     * All vertices are set to open with null predecessors and
-     * a distance of inifinity from the start.
-     */
-    private void searchInit() {
-        Iterator<Vertex> iterator = verticesList().iterator();
-        while ( iterator.hasNext() ) {
-            Vertex vertex = (Vertex) iterator.next();
-            vertex.setOpen(true);
-            vertex.setDistance(Integer.MAX_VALUE);
-            vertex.setPredecessor(null);
-        }
-    }
 
     public String pathString(Vertex start, Vertex end) {
         if ( start == end ) {

@@ -1,6 +1,6 @@
 package com.hulldiscover.zeus.basicsatnavsystem.Model;
 
-import com.hulldiscover.zeus.basicsatnavsystem.Graph;
+import com.hulldiscover.zeus.basicsatnavsystem.DirectedGraph;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,29 +11,51 @@ import java.util.Map;
 
 /**
  * Created by Zeus on 18/06/16.
+ *
+ * Find single source shortest path using Dijkstra's algorithm
+ *
+ * Space complexity - O(E + V)
+ * Time complexity - O(ElogV)
+ *
+ * References
+ * https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+ *
  */
 public class ShortestPath {
-    LinkedList<Graph.Vertex> shortestPath;
-    public Map<Graph.Vertex, Integer> shortestPath(Graph graph, String from, String to) {
+    LinkedList<DirectedGraph.Vertex> shortestPath; // Shortest path between two vertex
 
-        Graph.Vertex sourceVertex = graph.getV(from);
-        Graph.Vertex destination = graph.getV(to);
+    /**
+     * Main function to find shortest path
+     * between two vertex.
+     *
+     * @param
+     *          directedGraph the graph
+     * @param
+     *          from stating vertex
+     * @param
+     *          to destination vertex
+     * @return
+     *          map of how far vertex is from source
+     */
+    public Map<DirectedGraph.Vertex, Integer> shortestPath(DirectedGraph directedGraph, String from, String to) {
 
-        Graph.Vertex b = new Graph.Vertex("B");
-        Graph.Vertex empty = new Graph.Vertex("NULL");
+        DirectedGraph.Vertex sourceVertex = directedGraph.getV(from);
+        DirectedGraph.Vertex destination = directedGraph.getV(to);
+
+        DirectedGraph.Vertex empty = new DirectedGraph.Vertex("NULL");
 
         // Heap + map data structure
-        BinaryMinHeap<Graph.Vertex> minHeap = new BinaryMinHeap<>();
+        BinaryMinHeap<DirectedGraph.Vertex> minHeap = new BinaryMinHeap<>();
 
         // Stores shortest distance from source to every vertex
-        Map<Graph.Vertex, Integer> distance = new HashMap<>();
+        Map<DirectedGraph.Vertex, Integer> distance = new HashMap<>();
 
         // Stores parent of every vertex in shortest distance
-        Map<Graph.Vertex, Graph.Vertex> parent = new HashMap<>();
+        Map<DirectedGraph.Vertex, DirectedGraph.Vertex> parent = new HashMap<>();
 
         // Init all vertex with infinite distance from source vertex
         // Because we initially don't know the distance between them
-        for (Graph.Vertex vertex : graph.verticesList()) {
+        for (DirectedGraph.Vertex vertex : directedGraph.verticesList()) {
             minHeap.add(Integer.MAX_VALUE, vertex);
         }
 
@@ -49,24 +71,17 @@ public class ShortestPath {
         // Iterate until heap is empty
         while (!minHeap.empty()) {
             // Get the min value heap node which has vertex and distance of that vertex from source vertex.
-            BinaryMinHeap<Graph.Vertex>.Node heapNode = minHeap.extractMinNode();
-            Graph.Vertex current = heapNode.key;
+            BinaryMinHeap<DirectedGraph.Vertex>.Node heapNode = minHeap.extractMinNode();
+            DirectedGraph.Vertex current = heapNode.key;
 
             // Update shortest distance of current vertex from source vertex
             distance.put(current, heapNode.weight);
 
-            //Graph.Edge[] edges = graph.edges();
-            //Iterator<Graph.Vertex> iterator = graph.adjacentTo(current.name).iterator();
-
-            //while (iterator.hasNext()) {
-                //Graph.Vertex adjacent = iterator.next();
-
-            //}
             // Iterate through all edges of current vertex
-            for (Graph.Edge edge : current.getEdges()) {
+            for (DirectedGraph.Edge edge : current.getEdges()) {
 
                 // Get the adjacent vertex
-                Graph.Vertex adjacent = getVertexForEdge(graph, current, edge);
+                DirectedGraph.Vertex adjacent = getVertexForEdge(directedGraph, current, edge);
 
                 // If heap does not contain adjacent vertex means adjacent vertex
                 // already has shortest distance from source vertex
@@ -78,7 +93,7 @@ public class ShortestPath {
                 // vertex from source
 
                 int newDistance = distance.get(current) + edge.getDistance();
-                //int newDistance = graph.getDistance(current.name, adjacent.name);
+                //int newDistance = directedGraph.getDistance(current.name, adjacent.name);
 
                 // See if the above calculated distance is less than current
                 // distance stored for adjacent vertex from source vertex
@@ -87,30 +102,51 @@ public class ShortestPath {
                     parent.put(adjacent, current);
                 }
 
-                graph.getV(adjacent.name);
+                directedGraph.getV(adjacent.name);
             }
         }
 
-
-        //String name = parent.get(destination).name;// will give value then continue until reach sourcevertex
-        //shortestPath(graph, destination, sourceVertex, parent, new LinkedHashSet<Graph.Vertex>());
-        //Graph.Vertex destination = new Graph.Vertex("C");
-        discover(destination, sourceVertex, parent, new LinkedHashSet<Graph.Vertex>());
+        //DirectedGraph.Vertex destination = new DirectedGraph.Vertex("C");
+        discover(destination, sourceVertex, parent, new LinkedHashSet<DirectedGraph.Vertex>());
         return distance;
     }
 
-    private Graph.Vertex getVertexForEdge(Graph g, Graph.Vertex v, Graph.Edge e){
-        Graph.Vertex v1 = g.getV(e.vertex1);
-        Graph.Vertex v2 = g.getV(e.vertex2);
+    /**
+     * Method retrieves vertex point from edge.
+     *
+     * @param g
+     *          graph
+     * @param v
+     *          vertex
+     * @param e
+     *          edge
+     * @return
+     *          the vertex from an edge in graph
+     */
+    private DirectedGraph.Vertex getVertexForEdge(DirectedGraph g, DirectedGraph.Vertex v, DirectedGraph.Edge e){
+        DirectedGraph.Vertex v1 = g.getV(e.vertex1);
+        DirectedGraph.Vertex v2 = g.getV(e.vertex2);
         return v1.equals(v) ? v2 : v1;
     }
 
-    // Get to C from A
-    // Current = C
-    // Source = A
-    public void discover(Graph.Vertex current, Graph.Vertex source, Map<Graph.Vertex, Graph.Vertex> parent, LinkedHashSet<Graph.Vertex> path) {
+
+    /**
+     * Function to find the shortest path.
+     *
+     * @param current
+     *                  vertex
+     * @param source
+     *                  vertex as starting point
+     * @param parent
+     *                  map
+     * @param path
+     *                  linkedHashSet that contains
+     *                  vertices in shortest path
+     */
+    public void discover(DirectedGraph.Vertex current, DirectedGraph.Vertex source, Map<DirectedGraph.Vertex, DirectedGraph.Vertex> parent, LinkedHashSet<DirectedGraph.Vertex> path) {
         path.add(current);
 
+        // Exit statement
         if (current == source) { // C == A
             path.add(current);
             // Add shortest path
@@ -119,18 +155,19 @@ public class ShortestPath {
             return;
         }
 
-        // Current  = C
-        // Source/Destination = A
-        // Look in parent
-        // Go to Key C from parent
-        // Get value of Key C = B
-        // Use value to look in parent again
-        // Get value of Key B from parent = A
-        // Get value of Key A from parent = null
-        // stop when value = null
+        /* Example
+         * Current  = C
+         * Source/Destination = A
+         * Look in parent
+         * Go to Key C from parent
+         * Get value of Key C = B
+         * Use value to look in parent again
+         * Get value of Key B from parent = A
+         * Get value of Key A from parent = null
+         * stop when value = null
+         */
 
-
-        Graph.Vertex start = parent.get(current); // Get C, then B, then A -> to get null
+        DirectedGraph.Vertex start = parent.get(current); // Get C, then B, then A -> to get null
 
 
         if (!path.contains(start)) { // B not in path, A not in path, null not in path
@@ -143,27 +180,40 @@ public class ShortestPath {
 
     }
 
-    public void addShortestPath(LinkedHashSet<Graph.Vertex> path) {
-        LinkedList<Graph.Vertex> list = new LinkedList<>(path);
-        Iterator<Graph.Vertex> itr = list.descendingIterator();
+    /**
+     * Function to add to a list
+     * what has been found as
+     * the shorted path.
+     *
+     * @param path the of the shortest route
+     *             between two vertex
+     */
+    public void addShortestPath(LinkedHashSet<DirectedGraph.Vertex> path) {
+        LinkedList<DirectedGraph.Vertex> list = new LinkedList<>(path);
+        Iterator<DirectedGraph.Vertex> itr = list.descendingIterator();
         shortestPath = new LinkedList<>();
         // Iterate through shortest path
         // in descending order
         while (itr.hasNext()) {
-            Graph.Vertex v = itr.next();
+            DirectedGraph.Vertex v = itr.next();
             shortestPath.add(v);
             System.out.println(v.name + "");
         }
     }
 
-    public List<Graph.Vertex> getPath() {
-        LinkedList<Graph.Vertex> shortest = new LinkedList<>();
-        LinkedList<Graph.Vertex> list = new LinkedList<>(shortestPath);
+    /**
+     * Function to return the shortest path found.
+     *
+     * @return list of the shortest path
+     */
+    public List<DirectedGraph.Vertex> getPath() {
+        LinkedList<DirectedGraph.Vertex> shortest = new LinkedList<>();
+        LinkedList<DirectedGraph.Vertex> list = new LinkedList<>(shortestPath);
         // Iterate through shortest path
         // in descending order
-        Iterator<Graph.Vertex> itr = list.descendingIterator();
+        Iterator<DirectedGraph.Vertex> itr = list.descendingIterator();
         while(itr.hasNext()) {
-            Graph.Vertex v = itr.next();
+            DirectedGraph.Vertex v = itr.next();
             shortest.add(v);
         }
         return shortestPath;

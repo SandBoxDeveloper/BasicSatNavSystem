@@ -9,28 +9,28 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Zeus on 12/06/16.
  */
-public class GraphUnitTest {
+public class DirectedGraphUnitTest {
 
-    private static final Graph.Edge[] GRAPH = {
-            new Graph.Edge("A", "B", 5),
-            new Graph.Edge("B", "C", 4),
-            new Graph.Edge("C", "D", 7),
-            new Graph.Edge("D", "C", 8),
-            new Graph.Edge("D", "E", 6),
-            new Graph.Edge("A", "D", 5),
-            new Graph.Edge("C", "E", 2),
-            new Graph.Edge("E", "B", 3),
-            new Graph.Edge("A", "E", 7),
+    private static final DirectedGraph.Edge[] GRAPH = {
+            new DirectedGraph.Edge("A", "B", 5),
+            new DirectedGraph.Edge("B", "C", 4),
+            new DirectedGraph.Edge("C", "D", 7),
+            new DirectedGraph.Edge("D", "C", 8),
+            new DirectedGraph.Edge("D", "E", 6),
+            new DirectedGraph.Edge("A", "D", 5),
+            new DirectedGraph.Edge("C", "E", 2),
+            new DirectedGraph.Edge("E", "B", 3),
+            new DirectedGraph.Edge("A", "E", 7),
     };
 
-    Graph directedGraph = new Graph(GRAPH);
+    DirectedGraph directedDirectedGraph = new DirectedGraph(GRAPH);
 
     /*
      * Is the directed graph setup successful?
      */
     @Test
     public void setupgraph_isCorrect() throws Exception {
-        assertNotNull(directedGraph);
+        assertNotNull(directedDirectedGraph);
     }
 
     /*
@@ -39,7 +39,7 @@ public class GraphUnitTest {
      */
     @Test
     public void numberOfVertices() throws Exception {
-        int verticesCount = directedGraph.numberOfVertices();
+        int verticesCount = directedDirectedGraph.numberOfVertices();
         assertEquals(5, verticesCount);
     }
 
@@ -49,7 +49,7 @@ public class GraphUnitTest {
      */
     @Test
     public void numberOfEdges() throws Exception {
-        int edgesCount = directedGraph.numberOfEdges();
+        int edgesCount = directedDirectedGraph.numberOfEdges();
         assertEquals(9, edgesCount);
     }
 
@@ -61,7 +61,7 @@ public class GraphUnitTest {
      */
     @Test
     public void returnVertices() throws Exception {
-        assertNotNull(directedGraph.vertices());
+        assertNotNull(directedDirectedGraph.vertices());
     }
 
     /*
@@ -73,12 +73,12 @@ public class GraphUnitTest {
      */
     @Test
     public void isAdjacentTo() throws Exception {
-        assertTrue(directedGraph.isAdjacentTo("A", "B"));
+        assertTrue(directedDirectedGraph.isAdjacentTo("A", "B"));
     }
 
     @Test
     public void getDistanceBetweenPaths() throws Exception {
-        assertEquals(5, directedGraph.getDistance("A", "D"));
+        assertEquals(5, directedDirectedGraph.getDistance("A", "D"));
     }
 
 

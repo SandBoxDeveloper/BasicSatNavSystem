@@ -1,12 +1,16 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
+import com.hulldiscover.zeus.basicsatnavsystem.Model.CycleInDirectedGraph;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
 
@@ -23,21 +27,21 @@ public class PathFinderTest {
     public static final String D = "D";
     public static final String E = "E";
 
-    // Graph Edges
-    private static final Graph.Edge[] GRAPH = {
-            new Graph.Edge(A, B, 5),
-            new Graph.Edge(B, C, 4),
-            new Graph.Edge(C, D, 7),
-            new Graph.Edge(D, C, 8),
-            new Graph.Edge(D, E, 6),
-            new Graph.Edge(A, D, 5),
-            new Graph.Edge(C, E, 2),
-            new Graph.Edge(E, B, 3),
-            new Graph.Edge(A, E, 7),
+    // DirectedGraph Edges
+    private static final DirectedGraph.Edge[] GRAPH = {
+            new DirectedGraph.Edge(A, B, 5),
+            new DirectedGraph.Edge(B, C, 4),
+            new DirectedGraph.Edge(C, D, 7),
+            new DirectedGraph.Edge(D, C, 8),
+            new DirectedGraph.Edge(D, E, 6),
+            new DirectedGraph.Edge(A, D, 5),
+            new DirectedGraph.Edge(C, E, 2),
+            new DirectedGraph.Edge(E, B, 3),
+            new DirectedGraph.Edge(A, E, 7),
     };
 
-    // Graph
-    Graph directedGraph;
+    // DirectedGraph
+    DirectedGraph directedGraph;
 
     // Path Finder
     PathFinder pathFinder;
@@ -45,20 +49,26 @@ public class PathFinderTest {
     // Path Search
     BreadthFirstPaths findAllPaths;
 
+    // Cycle in Graph
+    CycleInDirectedGraph cycleInDirectedGraph;
+
     /**
      * Set up test environment
      * based on given specification.
      * */
     @Before
     public void setUp() {
-        // Init Graph
-        directedGraph = new Graph(GRAPH);
+        // Init DirectedGraph
+        directedGraph = new DirectedGraph(GRAPH);
 
         // Init PathFinder
         pathFinder = new PathFinder(directedGraph, "A");
 
         // Init search
         findAllPaths = new BreadthFirstPaths(directedGraph);
+
+        // Init cycle detection
+        cycleInDirectedGraph = new CycleInDirectedGraph();
     }
 
 
@@ -79,7 +89,6 @@ public class PathFinderTest {
 
         assertFalse(expected, outcome);
     }
-
 
     // Find all paths from A - E
     // Expected size 5
@@ -164,10 +173,45 @@ public class PathFinderTest {
         // Prepare
         boolean expected = true;
 
-        Graph.Vertex vertex = new Graph.Vertex(A);
+        DirectedGraph.Vertex vertex = new DirectedGraph.Vertex(A);
 
         // Compute if path cyclic
         boolean outcome = directedGraph.isCyclicDirected(vertex);
+
+        // Assert
+        Assert.assertEquals(expected, outcome);
+    }
+
+    @Test
+    public void hasCycle() {
+        // Prepare
+        boolean expected = true;
+        boolean outcome;
+
+        // Determine if graph has cycle
+        outcome = cycleInDirectedGraph.hasCycle(directedGraph);
+
+        // Set of cycles in graph
+        Set<Set<DirectedGraph.Vertex>> cycles = cycleInDirectedGraph.returnGreySet();
+
+
+
+        for(Set<DirectedGraph.Vertex> set : cycles) {
+            // create an iterator
+            Iterator iterator = set.iterator();
+            //DirectedGraph.Vertex v = iterator.next();
+
+            for(DirectedGraph.Vertex cycle : set) {
+                System.out.println("Value: "+cycle.name + " ");
+            }
+            // check values
+            /*while (iterator.hasNext()){
+                System.out.println("Value: "+iterator.next() + " ");
+            }*/
+        }
+
+
+
 
         // Assert
         Assert.assertEquals(expected, outcome);

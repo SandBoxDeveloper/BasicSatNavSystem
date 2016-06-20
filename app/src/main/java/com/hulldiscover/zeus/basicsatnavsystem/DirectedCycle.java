@@ -16,34 +16,34 @@ public class DirectedCycle {
     /**
      * Determines whether the digraph <tt>G</tt> has a directed cycle and, if so,
      * finds such a cycle.
-     * @param graph the digraph
+     * @param directedGraph the digraph
      */
-    public DirectedCycle(Graph graph) {
-        marked  = new boolean[graph.numberOfVertices()];
-        onStack = new boolean[graph.numberOfVertices()];
-        edgeTo  = new int[graph.numberOfVertices()];
+    public DirectedCycle(DirectedGraph directedGraph) {
+        marked  = new boolean[directedGraph.numberOfVertices()];
+        onStack = new boolean[directedGraph.numberOfVertices()];
+        edgeTo  = new int[directedGraph.numberOfVertices()];
 
-        Iterable<String> vertices = graph.vertices();
-        List<String> listV = new ArrayList<String>(graph.numberOfVertices());
+        Iterable<String> vertices = directedGraph.vertices();
+        List<String> listV = new ArrayList<String>(directedGraph.numberOfVertices());
 
         for(String ve : vertices) {
             listV.add(ve);
         }
 
-        for (int v = 0; v < graph.numberOfVertices(); v++) {
+        for (int v = 0; v < directedGraph.numberOfVertices(); v++) {
             String vertex = listV.get(v);
-            if (!marked[v] && cycle == null) dfs(graph, vertex);
+            if (!marked[v] && cycle == null) dfs(directedGraph, vertex);
         }
     }
 
 
 
     // check that algorithm computes either the topological order or finds a directed cycle
-    private void dfs(Graph graph, String vertex) {
+    private void dfs(DirectedGraph directedGraph, String vertex) {
 
         // List of vertices
-        Iterable<String> vertices = graph.vertices();
-        List<String> listV = new ArrayList<String>(graph.numberOfVertices());
+        Iterable<String> vertices = directedGraph.vertices();
+        List<String> listV = new ArrayList<String>(directedGraph.numberOfVertices());
         int v = 0;
 
         for(String ve : vertices) {
@@ -61,9 +61,9 @@ public class DirectedCycle {
         marked[v] = true; // vertex positioned at v has now been marked
 
         // List of vertex adjacent
-        List<String> adjacentList = graph.listOfVerticesAdjacentTo(vertex);
+        List<String> adjacentList = directedGraph.listOfVerticesAdjacentTo(vertex);
 
-        for (int w = 0; w < graph.numberOfVertices(); w++) {
+        for (int w = 0; w < directedGraph.numberOfVertices(); w++) {
 
             // short circuit if directed cycle found
             if (cycle != null) return;
@@ -73,7 +73,7 @@ public class DirectedCycle {
                 edgeTo[w] = v; // index of vertex found
                 String ve = listV.get(w);
                 //w = listV.indexOf(ve);
-                dfs(graph, ve);
+                dfs(directedGraph, ve);
             }
 
 

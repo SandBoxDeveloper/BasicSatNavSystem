@@ -1,7 +1,7 @@
 package com.hulldiscover.zeus.basicsatnavsystem.Calculator;
 
 import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
-import com.hulldiscover.zeus.basicsatnavsystem.Graph;
+import com.hulldiscover.zeus.basicsatnavsystem.DirectedGraph;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -10,11 +10,13 @@ import java.util.ListIterator;
  * Created by Zeus on 14/06/16.
  */
 
-/* The class implements a method
+/**
+ * The class implements a method
  * to calculate the length of
  * a route in the graph.
  *
  * Method named getRouteLength does the calculation.
+ *
  */
 public class RoutePathLength {
 
@@ -22,13 +24,17 @@ public class RoutePathLength {
     BreadthFirstPaths findAllPaths;
 
     /**
-     * This method gets the distance (length) of
+     * Function gets the distance (length) of
      * a path.
-     * @param directedGraph
-     * @param path
-     * @return the route distance
+     *
+     * @param
+     *          directedDirectedGraph the graph
+     * @param
+     *          path of route
+     * @return
+     *          length of route
      */
-    public String getRouteLength(Graph directedGraph, List<String> path) {
+    public String getRouteLength(DirectedGraph directedDirectedGraph, List<String> path) {
 
         // Sum of distance in path
         int distanceBetweenTwoVertexPoints = 0;
@@ -42,10 +48,10 @@ public class RoutePathLength {
 
         // Use FindPath class to check
         // Init search class
-        findAllPaths = new BreadthFirstPaths(directedGraph);
+        findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
 
         // 1) & 2)
-        if(findAllPaths.pathExist(path) == true) { // find distance of path
+        if(findAllPaths.pathExist(path)) { // find distance of path
             // Iterate through path
             ListIterator<String> iterator = path.listIterator();
 
@@ -66,7 +72,7 @@ public class RoutePathLength {
                  */
 
                 // 1) and 2)
-                distanceBetweenTwoVertexPoints = directedGraph.getDistance(source, destination);
+                distanceBetweenTwoVertexPoints = directedDirectedGraph.getDistance(source, destination);
 
                 // 3)
                 while (iterator.hasPrevious() && iterator.hasNext()) {
@@ -75,7 +81,7 @@ public class RoutePathLength {
                     String nextVertex = iterator.next();
 
                     // Add to existing distance sum
-                    distanceBetweenTwoVertexPoints += directedGraph.getDistance(previousVertex, nextVertex);
+                    distanceBetweenTwoVertexPoints += directedDirectedGraph.getDistance(previousVertex, nextVertex);
                 }
             }
 
@@ -90,12 +96,16 @@ public class RoutePathLength {
     }
 
     /**
-     * This method try to parse int input
+     * Function try's to parse int input
      * to a string value.
-     * If it cannot, it return null.
-     * @param value
-     * @return the string representation of int input OR
-     *         null if if cannot convert int value.
+     * If it cannot, it returns null.
+     *
+     * @param
+     *          value to parse as String
+     * @return
+     *          <pp>String representation of int input</pp>
+     *          <pp>OR</pp>
+     *          <pp>Null if if cannot convert int value</pp>
      */
     public static String tryParse(int value) {
         try {

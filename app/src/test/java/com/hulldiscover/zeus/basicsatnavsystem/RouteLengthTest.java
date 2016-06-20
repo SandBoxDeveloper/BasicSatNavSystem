@@ -22,20 +22,20 @@ public class RouteLengthTest {
     public static final String D = "D";
     public static final String E = "E";
 
-    private static final Graph.Edge[] GRAPH = {
-            new Graph.Edge(A, B, 5),
-            new Graph.Edge(B, C, 4),
-            new Graph.Edge(C, D, 7),
-            new Graph.Edge(D, C, 8),
-            new Graph.Edge(D, E, 6),
-            new Graph.Edge(A, D, 5),
-            new Graph.Edge(C, E, 2),
-            new Graph.Edge(E, B, 3),
-            new Graph.Edge(A, E, 7),
+    private static final DirectedGraph.Edge[] GRAPH = {
+            new DirectedGraph.Edge(A, B, 5),
+            new DirectedGraph.Edge(B, C, 4),
+            new DirectedGraph.Edge(C, D, 7),
+            new DirectedGraph.Edge(D, C, 8),
+            new DirectedGraph.Edge(D, E, 6),
+            new DirectedGraph.Edge(A, D, 5),
+            new DirectedGraph.Edge(C, E, 2),
+            new DirectedGraph.Edge(E, B, 3),
+            new DirectedGraph.Edge(A, E, 7),
     };
 
-    // Graph
-    Graph directedGraph;
+    // DirectedGraph
+    DirectedGraph directedDirectedGraph;
 
     // Path Search
     BreadthFirstPaths findAllPaths;
@@ -49,12 +49,21 @@ public class RouteLengthTest {
      * */
     @Before
     public void setUp() {
-        // Init Graph
-        directedGraph = new Graph(GRAPH);
+        // Init DirectedGraph
+        directedDirectedGraph = new DirectedGraph(GRAPH);
 
         // Init search
-        findAllPaths = new BreadthFirstPaths(directedGraph);
+        findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
     }
+
+     /* 1. Distance for route A-B-C. Expected output 9
+            2. Distance for route A-D. Expected output 5
+            3. Distance for route A-D-C. Expected output 13
+            4. Distance for route A-E-B-C-D. Expected output 21
+            5. Distance for route A-E-D. Expected output NO SUCH ROUTE
+    6. The number of routes starting at C and ending at C with a maximum of 3
+    junctions. In the sample data below, there are two such routes: C-D-C (2
+                                                                           junctions) and C-E-B-C (3 junctions). Expected output 2*/
 
     // Distance for route A-B-C
     // Expected output 9
@@ -71,7 +80,7 @@ public class RouteLengthTest {
         String expected = "9";
 
         // Calculate route path distance
-        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedDirectedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -91,7 +100,7 @@ public class RouteLengthTest {
         String expected = "5";
 
         // Calculate route path distance
-        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedDirectedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -112,7 +121,7 @@ public class RouteLengthTest {
         String expected = "13";
 
         // Calculate route path distance
-        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedDirectedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -135,7 +144,7 @@ public class RouteLengthTest {
         String expected = "21";
 
         // Calculate route path distance
-        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedDirectedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -156,7 +165,7 @@ public class RouteLengthTest {
         String expected = "NO SUCH ROUTE";
 
         // Calculate route path distance
-        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedDirectedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -171,12 +180,13 @@ public class RouteLengthTest {
         List<String> routePath = new ArrayList<String>();
         // Route A-C
         routePath.add(A);
+        routePath.add(B);
         routePath.add(C);
 
         String expected = "9";
 
         // Calculate route path distance
-        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedDirectedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);
@@ -196,7 +206,7 @@ public class RouteLengthTest {
         String expected = "9";
 
         // Calculate route path distance
-        String routeLength = routePathLengthCalculation.getRouteLength(directedGraph, routePath);
+        String routeLength = routePathLengthCalculation.getRouteLength(directedDirectedGraph, routePath);
 
         // Assert
         Assert.assertEquals(expected, routeLength);

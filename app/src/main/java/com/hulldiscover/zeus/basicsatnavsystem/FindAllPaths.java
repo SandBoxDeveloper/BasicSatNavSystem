@@ -21,12 +21,12 @@ public class FindAllPaths <Vertex> {
     private Stack<String> path = new Stack<String>(); // current path
     private Set<String> vertexOnPath = new HashSet<String>(); // set of vertices on path
 
-    public FindAllPaths(Graph graph, String source, String t) {
+    public FindAllPaths(DirectedGraph directedGraph, String source, String t) {
         // Call to enumerate method
-        enumerate(graph, source, t);
+        enumerate(directedGraph, source, t);
     }
 
-    private void enumerate(Graph graph, String vertex, String t) {
+    private void enumerate(DirectedGraph directedGraph, String vertex, String t) {
         // add vertex to
         // current path from source
         path.add(vertex);
@@ -43,10 +43,10 @@ public class FindAllPaths <Vertex> {
             // Consider all neighbors
             // that would continue path
             // with repeating a node
-            for(Graph.Vertex vertexName : graph.setOfVerticesAdjacentTo(vertex)) {
+            for(DirectedGraph.Vertex vertexName : directedGraph.setOfVerticesAdjacentTo(vertex)) {
                 if(!vertexOnPath.contains(vertexName)) { // if vertex not on path
                     // continue search
-                    //enumerate(graph, vertex, t);
+                    //enumerate(directedGraph, vertex, t);
                 }
             }
         }
