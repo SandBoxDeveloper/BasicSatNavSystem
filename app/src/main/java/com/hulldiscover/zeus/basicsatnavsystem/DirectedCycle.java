@@ -6,6 +6,7 @@ import java.util.Stack;
 
 /**
  * Created by Zeus on 15/06/16.
+ * update
  */
 public class DirectedCycle {
     private boolean[] marked;        // marked[v] = has vertex v been marked?
