@@ -18,9 +18,9 @@ import android.widget.Toast;
 
 import com.hulldiscover.zeus.basicsatnavsystem.Adapter.ListAdapter;
 import com.hulldiscover.zeus.basicsatnavsystem.Adapter.ShortestPathListAdapter;
-import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
-import com.hulldiscover.zeus.basicsatnavsystem.DirectedGraph;
-import com.hulldiscover.zeus.basicsatnavsystem.Model.ShortestPath;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.BreadthFirstFindAllPaths;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DijkstraFindShortestPath;
 import com.hulldiscover.zeus.basicsatnavsystem.R;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Created by Zeus on 04/04/16.
  */
-public class Navigation extends AppCompatActivity implements Animation.AnimationListener{
+public class ActivityNavigate extends AppCompatActivity implements Animation.AnimationListener{
 
 
     EditText start;
@@ -90,7 +90,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                 }
 
                 // Init search
-                BreadthFirstPaths findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
+                BreadthFirstFindAllPaths findAllPaths = new BreadthFirstFindAllPaths(directedDirectedGraph);
 
                 // Get inputs from screen
                 String startInput = start.getText().toString().toUpperCase();
@@ -113,7 +113,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                 }
 
                 // Create ArrayAdapter using the paths list
-                listAdapter = new ListAdapter(Navigation.this, R.layout.listview_item, paths);
+                listAdapter = new ListAdapter(ActivityNavigate.this, R.layout.listview_item, paths);
 
                 // Assign adapter to ListView
                 listView.setAdapter(listAdapter);
@@ -165,7 +165,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                 }
 
                 // Init search
-                ShortestPath searchForShortestPath = new ShortestPath();
+                DijkstraFindShortestPath searchForShortestPath = new DijkstraFindShortestPath();
                 Map<DirectedGraph.Vertex,Integer> discoveredRoute = searchForShortestPath.shortestPath(directedDirectedGraph, startInput, destinationInput);
 
                 // Get list of paths between start and destination
@@ -186,7 +186,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                 paths.add(shortestPath);
 
                 // Create ArrayAdapter using the paths list
-                shortestPathListAdapter = new ShortestPathListAdapter(Navigation.this, R.layout.listview_item, paths);
+                shortestPathListAdapter = new ShortestPathListAdapter(ActivityNavigate.this, R.layout.listview_item, paths);
 
                 // Assign adapter to ListView
                 listView.setAdapter(shortestPathListAdapter);
@@ -232,7 +232,7 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                 // start the animation
                 transitMode.startAnimation(animFadein);
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(Navigation.this);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityNavigate.this);
                 // Set the dialog title
                 builder.setTitle("Pick transit");
                 // Specify the list array, the items to be selected by default (null for none),
@@ -246,31 +246,31 @@ public class Navigation extends AppCompatActivity implements Animation.Animation
                         switch (selection) {
                             case 0:
                                 // Car first option selected
-                                Intent transitOptionCar = new Intent(Navigation.this, Activity_TransitOptionCar.class);
+                                Intent transitOptionCar = new Intent(ActivityNavigate.this, Activity_TransitOptionCar.class);
                                 dialog.dismiss();
                                 startActivity(transitOptionCar);
                                 break;
                             case 1:
                                 // Public transport when 2nd  option selected
-                                Intent transitOptionPublicTransport = new Intent(Navigation.this, Activity_TransitOptionPublicTransport.class);
+                                Intent transitOptionPublicTransport = new Intent(ActivityNavigate.this, Activity_TransitOptionPublicTransport.class);
                                 dialog.dismiss();
                                 startActivity(transitOptionPublicTransport);
                                 break;
                             case 2:
                                 // Walk 3rd option selected
-                                Intent transitOptionWalk = new Intent(Navigation.this, Activity_TransitOptionWalk.class);
+                                Intent transitOptionWalk = new Intent(ActivityNavigate.this, Activity_TransitOptionWalk.class);
                                 dialog.dismiss();
                                 startActivity(transitOptionWalk);
                                 break;
                             case 3:
                                 // Cycle option selected
-                                Intent transitOptionCycle = new Intent(Navigation.this, Activity_TransitOptionCycle.class);
+                                Intent transitOptionCycle = new Intent(ActivityNavigate.this, Activity_TransitOptionCycle.class);
                                 dialog.dismiss();
                                 startActivity(transitOptionCycle);
                                 break;
                             case 4:
                                 // Spaceship option selected
-                                Intent transitOptionSpaceship = new Intent(Navigation.this, Activity_TransitOptionSpaceship.class);
+                                Intent transitOptionSpaceship = new Intent(ActivityNavigate.this, Activity_TransitOptionSpaceship.class);
                                 dialog.dismiss();
                                 startActivity(transitOptionSpaceship);
                                 break;

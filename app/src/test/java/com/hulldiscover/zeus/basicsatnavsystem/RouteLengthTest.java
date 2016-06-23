@@ -1,6 +1,8 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
-import com.hulldiscover.zeus.basicsatnavsystem.Calculator.RoutePathLength;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.RoutePathLength;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.BreadthFirstFindAllPaths;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
 
 import junit.framework.Assert;
 
@@ -38,7 +40,7 @@ public class RouteLengthTest {
     DirectedGraph directedDirectedGraph;
 
     // Path Search
-    BreadthFirstPaths findAllPaths;
+    BreadthFirstFindAllPaths findAllPaths;
 
     /**
      * Set up test environment
@@ -53,7 +55,7 @@ public class RouteLengthTest {
         directedDirectedGraph = new DirectedGraph(GRAPH);
 
         // Init search
-        findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
+        findAllPaths = new BreadthFirstFindAllPaths(directedDirectedGraph);
     }
 
      /* 1. Distance for route A-B-C. Expected output 9

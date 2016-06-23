@@ -1,7 +1,4 @@
-package com.hulldiscover.zeus.basicsatnavsystem.Calculator;
-
-import com.hulldiscover.zeus.basicsatnavsystem.BreadthFirstPaths;
-import com.hulldiscover.zeus.basicsatnavsystem.DirectedGraph;
+package com.hulldiscover.zeus.basicsatnavsystem.Production;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -21,7 +18,7 @@ import java.util.ListIterator;
 public class RoutePathLength {
 
     // Path Search
-    BreadthFirstPaths findAllPaths;
+    BreadthFirstFindAllPaths findAllPaths;
 
     /**
      * Function gets the distance (length) of
@@ -48,7 +45,7 @@ public class RoutePathLength {
 
         // Use FindPath class to check
         // Init search class
-        findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
+        findAllPaths = new BreadthFirstFindAllPaths(directedDirectedGraph);
 
         // 1) & 2)
         if(findAllPaths.pathExist(path)) { // find distance of path

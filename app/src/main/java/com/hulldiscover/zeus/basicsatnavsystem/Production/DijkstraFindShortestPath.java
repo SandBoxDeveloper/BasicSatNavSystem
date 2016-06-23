@@ -1,6 +1,4 @@
-package com.hulldiscover.zeus.basicsatnavsystem.Model;
-
-import com.hulldiscover.zeus.basicsatnavsystem.DirectedGraph;
+package com.hulldiscover.zeus.basicsatnavsystem.Production;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,7 +19,7 @@ import java.util.Map;
  * https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
  *
  */
-public class ShortestPath {
+public class DijkstraFindShortestPath {
     LinkedList<DirectedGraph.Vertex> shortestPath; // Shortest path between two vertex
 
     /**

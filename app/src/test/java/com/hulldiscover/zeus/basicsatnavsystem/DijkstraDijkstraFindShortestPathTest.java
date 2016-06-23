@@ -1,5 +1,10 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
+import com.hulldiscover.zeus.basicsatnavsystem.Production.BreadthFirstFindAllPaths;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
+import com.hulldiscover.zeus.basicsatnavsystem.TestCode.TestDijkstraShortestPath;
+import com.hulldiscover.zeus.basicsatnavsystem.TestCode.TestPathFinder;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +16,7 @@ import static org.junit.Assert.assertFalse;
 /**
  * Created by Zeus on 14/06/16.
  */
-public class DijkstraShortestPathTest {
+public class DijkstraDijkstraFindShortestPathTest {
 
     // Test Data
     // Vertex (node) points
@@ -38,12 +43,12 @@ public class DijkstraShortestPathTest {
     DirectedGraph directedDirectedGraph;
 
     // Path Finder
-    PathFinder pathFinder;
+    TestPathFinder testPathFinder;
 
     // Path Search
-    BreadthFirstPaths findAllPaths;
+    BreadthFirstFindAllPaths findAllPaths;
 
-    DijkstraShortestPath shortestPath;
+    TestDijkstraShortestPath shortestPath;
 
     /**
      * Set up test environment
@@ -54,14 +59,14 @@ public class DijkstraShortestPathTest {
         // Init DirectedGraph
         directedDirectedGraph = new DirectedGraph(GRAPH);
 
-        // Init PathFinder
-        pathFinder = new PathFinder(directedDirectedGraph, "A");
+        // Init TestPathFinder
+        testPathFinder = new TestPathFinder(directedDirectedGraph, "A");
 
         // Init search
-        findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
+        findAllPaths = new BreadthFirstFindAllPaths(directedDirectedGraph);
 
         // Init search for shortest path
-        shortestPath = new DijkstraShortestPath();
+        shortestPath = new TestDijkstraShortestPath();
     }
 
 

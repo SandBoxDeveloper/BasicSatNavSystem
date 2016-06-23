@@ -1,5 +1,7 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

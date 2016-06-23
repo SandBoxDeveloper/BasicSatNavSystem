@@ -5,6 +5,8 @@ import org.junit.runners.Suite;
 
 /**
  * Created by Zeus on 12/06/16.
+ *
+ * Test Suite to run all test.
  */
 
 // Runs all unit tests.
@@ -12,7 +14,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         DirectedGraphUnitTest.class,
         GraphHasVertex.class,
-        PathFinder.class,
+        PathFinderTest.class,
         RouteLengthTest.class,
         ShortestPathTest.class})
 

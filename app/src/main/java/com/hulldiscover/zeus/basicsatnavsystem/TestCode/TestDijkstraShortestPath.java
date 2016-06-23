@@ -1,4 +1,6 @@
-package com.hulldiscover.zeus.basicsatnavsystem;
+package com.hulldiscover.zeus.basicsatnavsystem.TestCode;
+
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,8 +11,13 @@ import java.util.TreeMap;
 
 /**
  * Created by Zeus on 14/06/16.
+ *
+ * This is an attempt to implement Dijkstra algorithm.
+ *
+ * It is an experimental class not used for production
+ * and will be removed in the future during code-clean up.
  */
-public class DijkstraShortestPath {
+public class TestDijkstraShortestPath {
     // predecessor = predecessor vertex on shortest path from source vertex to destination vertex
     // distance = length of shortest path from source vertex to destination vertex
 

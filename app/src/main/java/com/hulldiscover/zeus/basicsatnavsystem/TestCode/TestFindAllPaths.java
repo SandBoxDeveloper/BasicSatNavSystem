@@ -1,4 +1,6 @@
-package com.hulldiscover.zeus.basicsatnavsystem;
+package com.hulldiscover.zeus.basicsatnavsystem.TestCode;
+
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,8 +8,15 @@ import java.util.Stack;
 
 /**
  * Created by Zeus on 13/06/16.
- */
-/* Class to
+ *
+ * This is an attempt to implement depth-first search.
+ *
+ * It is an experimental class not used for production
+ * and will be removed in the future during code-clean up.
+ *
+ * ========================================================
+ *
+ * Class to
  * find all paths
  * in graph.
  *
@@ -16,12 +25,12 @@ import java.util.Stack;
  * paths between two nodes. This algorithm should be very
  * fast and scale to large graphs.
  */
-public class FindAllPaths <Vertex> {
+public class TestFindAllPaths<Vertex> {
     // Stack Access = O(n)
     private Stack<String> path = new Stack<String>(); // current path
     private Set<String> vertexOnPath = new HashSet<String>(); // set of vertices on path
 
-    public FindAllPaths(DirectedGraph directedGraph, String source, String t) {
+    public TestFindAllPaths(DirectedGraph directedGraph, String source, String t) {
         // Call to enumerate method
         enumerate(directedGraph, source, t);
     }

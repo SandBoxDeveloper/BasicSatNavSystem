@@ -1,4 +1,6 @@
-package com.hulldiscover.zeus.basicsatnavsystem;
+package com.hulldiscover.zeus.basicsatnavsystem.TestCode;
+
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -8,8 +10,14 @@ import java.util.TreeMap;
 
 /**
  * Created by Zeus on 13/06/16.
+ *
+ * This is an attempt to implement depth-first search.
+ *
+ * It is an experimental class not used for production
+ * and will be removed in the future during code-clean up.
+ *
  */
-public class PathFinder {
+public class TestPathFinder {
     // predecessor = predecessor vertex on shortest path from source vertex to destination vertex
     // distance = length of shortest path from source vertex to destination vertex
 
@@ -17,7 +25,7 @@ public class PathFinder {
     private final TreeMap<String, Integer> distance = new TreeMap<String, Integer>();
     DirectedGraph.Edge[] edges;
 
-    public PathFinder (DirectedGraph directedGraph, String source) {
+    public TestPathFinder(DirectedGraph directedGraph, String source) {
         // Put source of vertex on queue
         Queue<String> queue = new PriorityQueue<String>();
         // Enqueuing
@@ -39,7 +47,7 @@ public class PathFinder {
             }
         }
 
-        edges = directedGraph.edges;
+        edges = directedGraph.edges();
 
     }
 

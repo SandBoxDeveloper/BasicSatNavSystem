@@ -8,11 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.TestActivity">
 
         </activity>
 
-        <activity android:name=".Activity.Navigation"
+        <activity android:name=".Activity.ActivityNavigate"
             android:label="@string/main_app_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +24,11 @@
 
         <activity android:name=".Activity.Activity_TransitOptionCar"
             android:label="@string/car_transit_title"
-            android:parentActivityName=".Activity.Navigation" >
+            android:parentActivityName=".Activity.ActivityNavigate" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.Navigation" />
+                android:value=".Activity.ActivityNavigate" />
         </activity>
 
         <activity android:name=".Activity.Activity_TransitOptionCycle"
@@ -36,7 +36,7 @@
             <!-- Parent activity -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.Navigation" />
+                android:value=".Activity.ActivityNavigate" />
         </activity>
 
         <activity android:name=".Activity.Activity_TransitOptionPublicTransport"
@@ -44,7 +44,7 @@
             <!-- Parent activity -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.Navigation" />
+                android:value=".Activity.ActivityNavigate" />
         </activity>
 
         <activity android:name=".Activity.Activity_TransitOptionSpaceship"
@@ -52,7 +52,7 @@
             <!-- Parent activity -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.Navigation" />
+                android:value=".Activity.ActivityNavigate" />
         </activity>
 
         <activity android:name=".Activity.Activity_TransitOptionWalk"
@@ -60,7 +60,7 @@
             <!-- Parent activity -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.Navigation" />
+                android:value=".Activity.ActivityNavigate" />
         </activity>
 
     </application>

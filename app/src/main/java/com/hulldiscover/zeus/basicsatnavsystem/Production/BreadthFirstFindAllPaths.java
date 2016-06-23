@@ -1,4 +1,4 @@
-package com.hulldiscover.zeus.basicsatnavsystem;
+package com.hulldiscover.zeus.basicsatnavsystem.Production;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ import java.util.TreeMap;
 /**
  * Created by Zeus on 13/06/16.
  */
-public class BreadthFirstPaths {
+public class BreadthFirstFindAllPaths {
 
     private final TreeMap<String, Integer> distance = new TreeMap<String, Integer>();
     private final TreeMap<String, Integer> routeDistances = new TreeMap<String, Integer>();
@@ -28,7 +28,7 @@ public class BreadthFirstPaths {
     /**
      * Takes in a directedGraph. This directedGraph should not be changed by the client
      */
-    public BreadthFirstPaths(DirectedGraph directedGraph) {
+    public BreadthFirstFindAllPaths(DirectedGraph directedGraph) {
         if (directedGraph == null) {
             throw new NullPointerException("The input directedGraph cannot be null.");
         }

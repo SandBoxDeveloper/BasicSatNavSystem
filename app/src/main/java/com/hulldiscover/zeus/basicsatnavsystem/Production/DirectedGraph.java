@@ -1,4 +1,4 @@
-package com.hulldiscover.zeus.basicsatnavsystem;
+package com.hulldiscover.zeus.basicsatnavsystem.Production;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +13,13 @@ import java.util.TreeSet;
 
 /**
  * Created by Zeus on 12/06/16.
+ *
+ * The DirectedGraph class implements an directed graph.
+ *
+ *
+ * @author  Andre Hitchman
+ * @version 1.0
+ * @since   2016-06-20
  */
 public class DirectedGraph {
     // graph
@@ -44,13 +51,16 @@ public class DirectedGraph {
         public final String vertex2;
         public final int distance;
 
-        /** Constructor
+        /**
          * Creates an edge in a graph
          *
-         * @param vertex1 the first vertex in graph
-         * @param vertex2 the first vertex in graph
-         * @param distance the distance between vertex1
-         *        and vertex 2 in graph.
+         * @param vertex1
+         *                  The first vertex in graph
+         * @param vertex2
+         *                  The first vertex in graph
+         * @param distance
+         *                  The distance between vertex1
+         *                  and vertex 2 in graph.
          */
         public Edge(String vertex1, String vertex2, int distance) {
             // Init member variables
@@ -59,9 +69,19 @@ public class DirectedGraph {
             this.distance = distance;
         }
 
+        /**
+         * Method to return the distance of a route (edge)
+         * between two vertex points.
+         *
+         * @return int
+         *         This returns the distance of an route (edge) between
+         *         two vertex points.
+         */
         public int getDistance(){
             return distance;
         }
+
+
         @Override
         public int hashCode() {
             final int prime = 31;
@@ -109,18 +129,22 @@ public class DirectedGraph {
         // Member variables
         public final String name;
         public int distance = Integer.MAX_VALUE; // MAX_VALUE assumed to be infinity
-        private boolean isVisited;
-        private Vertex predecessor = null;
-        private boolean isOpen;
         public final Map<Vertex, Integer> neighbours = new HashMap<>();
         private List<Vertex> adjacentVertex = new ArrayList<>();
         private List<Edge> edges = new ArrayList<>();
 
+        // implemented to test for a cycle in graph
+        // currently not used in final production code
+        private boolean isVisited;
+        private Vertex predecessor = null;
+        private boolean isOpen;
 
-        /** Constructor
+
+        /**
          * Creates an vertex in a graph
          *
-         * @param name the name of the vertex
+         * @param name
+         *              The name of the vertex
          */
         public Vertex(String name) {
             // Init name member variable
@@ -149,41 +173,51 @@ public class DirectedGraph {
             return true;
         }
 
+        /**
+         * Method to add adjacent (neighbour) vertex points
+         * of a vertex.
+         *
+         * @param e
+         *          The Edge (route)
+         * @param v
+         *          The vertex point
+         */
         public void addAdjacentVertex(Edge e, Vertex v){
             edges.add(e);
             adjacentVertex.add(v);
         }
 
+        /**
+         * Method to return a list of adjacent vertex
+         * points in graph.
+         *
+         * @return
+         *          List of adjacent vertexes
+         */
         public List<Vertex> getAdjacentVertexes(){
             return adjacentVertex;
         }
 
+        /**
+         * Method to return list of edges
+         * in graph.
+         *
+         * @return
+         *          List of edges
+         */
         public List<Edge> getEdges(){
             return edges;
         }
 
+        // isVisited and setVisited have been
+        // implemented to test for a cycle in graph
+        // currently not used in final production code
         public boolean isVisited() {
             return isVisited;
         }
 
         public void setVisited(boolean isVisited) {
             this.isVisited = isVisited;
-        }
-
-        /**
-         * Accessor for this vertex's distance from the start vertex.
-         * @return Distance from the start
-         */
-        int getDistance() {
-            return distance;
-        }
-
-        /**
-         * Mutator for this vertex's distance from the start vertex.
-         * @param distance Distance from the start
-         */
-        void setDistance(int distance) {
-            this.distance = distance;
         }
 
         /**
@@ -230,7 +264,7 @@ public class DirectedGraph {
             if (this == this.predecessor) {
                 System.out.printf("%s", this.name);
             } else if (this.predecessor == null) {
-                System.out.printf("%s(unreachable)", this.name);
+                System.out.printf("%s(is not unreachable)", this.name);
             } else {
                 this.predecessor.printPath();
                 System.out.printf(" -> %s(%d)", this.name, this.distance);
@@ -299,10 +333,15 @@ public class DirectedGraph {
         return "\n" + v.name + "\n";
     }
 
+    /**
+     * Method to get vertex by name.
+     *
+     * @param v - The name of the vertex point.
+     * @return Vertex
+     */
     public Vertex getV(String v) {
         return graph.get(v);
     }
-
 
     /**
      * Method throw an exception if
@@ -393,6 +432,12 @@ public class DirectedGraph {
         return graph.get(vertex).neighbours.keySet();
     }
 
+    /**
+     * Method to return adjacent vertices.
+     *
+     * @param v - The vertex name
+     * @return List of vertex names adjacent to vertex
+     */
     public List<String> listOfVerticesAdjacentTo(String v) {
         List<String> adjacent = new ArrayList<String>();
         Set<Vertex> setOfAdjacentVertex;
@@ -407,6 +452,12 @@ public class DirectedGraph {
         return adjacent;
     }
 
+    /**
+     * Method to return adjacent vertices.
+     *
+     * @param v - The vertex
+     * @return List of vertex adjacent to vertex
+     */
     public List<Vertex> verticesAdjacentTo(Vertex v) {
         List<Vertex> adjacent = new ArrayList<Vertex>();
         Set<Vertex> setOfAdjacentVertex;
@@ -421,6 +472,13 @@ public class DirectedGraph {
         return adjacent;
     }
 
+    /**
+     * Method to return a set of vertices
+     * adjacent to a vertex point.
+     *
+     * @param vertex - The vertex point
+     * @return Iterable - Adjacent vertices
+     */
     public Iterable<Vertex> adjacentTo(String vertex) {
         return setOfVerticesAdjacentTo(vertex);
     }
@@ -487,7 +545,40 @@ public class DirectedGraph {
         return edgesCount;
     }
 
+    /**
+     * Method to return the number of edges
+     * in graph as a array return type.
+     *
+     * @return Edge - The number of edges in graph
+     */
     public Edge[] edges() { return edges; }
+
+    /**
+     * Method to return the distance
+     * between two vertices.
+     *
+     * @param startName
+     *                  vertex
+     * @param endName
+     *                  vertex
+     * @return int
+     *          This returns the distance between vertices
+     */
+    public int getDistance(String startName, String endName) {
+        int distance = 0;
+
+        for (Edge edge : edges) {
+            if (edge.vertex1.equals(startName)
+                    && edge.vertex2.equals(endName)) {
+                distance = edge.distance;
+            }
+            if (edge.vertex1.equals(startName)
+                    && edge.vertex2.equals(endName)) {
+                distance = edge.distance;
+            }
+        }
+        return distance;
+    }
 
     /** Prints a path from the source to the specified vertex */
     public void printPath(String endName) {
@@ -500,6 +591,20 @@ public class DirectedGraph {
         System.out.println();
     }
 
+
+
+
+
+
+    /**
+     * TEST IMPLEMENTATIONS/Experimentation
+     * Not used to run main application
+     */
+
+    /**
+     * Method to print all paths
+     * in graph.
+     */
     public void printAllPaths() {
         for (Vertex v : graph.values()) {
             v.printPath();
@@ -507,6 +612,12 @@ public class DirectedGraph {
         }
     }
 
+    /**
+     * Method to check if graph is cyclic?
+     *
+     * @param v - the source vertex
+     * @return boolean
+     */
     public boolean isCyclicDirected(Vertex v){
         if (v.isVisited){
             return true;
@@ -528,27 +639,7 @@ public class DirectedGraph {
         return false;
     }
 
-    private Stack<String> cycle;
-    // does this graph have a self loop?
-    // side effect: initialize cycle to be self loop
-    public boolean hasSelfLoop(String vertex) {
-        for (int v = 0; v < numberOfVertices(); v++) {
-            Set<Vertex> adjacent = setOfVerticesAdjacentTo(vertex);
-            for(Vertex s : adjacent ) {
-                //String vertexName = graph.get(v).name;
-                if(vertex == s.name) {
-                    cycle = new Stack<String>();
-                    cycle.push(vertex);
-                    cycle.push(vertex);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
-        /** Runs dijkstra using a specified source vertex */
+    /** Runs dijkstra using a specified source vertex */
     public void dijkstra(String startName) {
         if (!graph.containsKey(startName)) {
             System.err.printf("DirectedGraph doesn't contain start vertex \"%s\"\n", startName);
@@ -591,34 +682,26 @@ public class DirectedGraph {
         return q;
     }
 
-
-    /**
-     * Function to return the distance
-     * between two vertices.
-     *
-     * @param
-     *          startName vertex
-     * @param
-     *          endName vertex
-     * @return
-     *          distance between vertices
-     */
-    public int getDistance(String startName, String endName) {
-        int distance = 0;
-
-        for (Edge edge : edges) {
-            if (edge.vertex1.equals(startName)
-                    && edge.vertex2.equals(endName)) {
-                distance = edge.distance;
-            }
-            if (edge.vertex1.equals(startName)
-                    && edge.vertex2.equals(endName)) {
-                distance = edge.distance;
+    private Stack<String> cycle;
+    // does this graph have a self loop?
+    // side effect: initialize cycle to be self loop
+    public boolean hasSelfLoop(String vertex) {
+        for (int v = 0; v < numberOfVertices(); v++) {
+            Set<Vertex> adjacent = setOfVerticesAdjacentTo(vertex);
+            for(Vertex s : adjacent ) {
+                //String vertexName = graph.get(v).name;
+                if(vertex == s.name) {
+                    cycle = new Stack<String>();
+                    cycle.push(vertex);
+                    cycle.push(vertex);
+                    return true;
+                }
             }
         }
-        return distance;
+        return false;
     }
 
+    // get distance between vertex points
     public int getDistance2(String startName, String middleName, String endName) {
         int distance = 0;
         for (Edge edge : edges) {
@@ -637,14 +720,14 @@ public class DirectedGraph {
         return distance;
     }
 
-    //TODO: Class called PathTO using BreadthFirstSearch Algorithim
-    // PathFinder(DirectedGraph G, String s) constructor
-    // int distanceTo(String v) length of shortest path of s to v in G
-    // Interable<String> pathTo(String v) shortest path from s to v in G
-
-
-
-
+    /**
+     * Method to print string representation
+     * of graph.
+     *
+     * @param start vertex
+     * @param end vertex
+     * @return the graph as a string
+     */
     public String pathString(Vertex start, Vertex end) {
         if ( start == end ) {
             return vertexString(start);

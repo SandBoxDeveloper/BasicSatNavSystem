@@ -1,6 +1,9 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
-import com.hulldiscover.zeus.basicsatnavsystem.Model.CycleInDirectedGraph;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.CycleInDirectedGraph;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.BreadthFirstFindAllPaths;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
+import com.hulldiscover.zeus.basicsatnavsystem.TestCode.TestPathFinder;
 
 import junit.framework.Assert;
 
@@ -44,10 +47,10 @@ public class PathFinderTest {
     DirectedGraph directedGraph;
 
     // Path Finder
-    PathFinder pathFinder;
+    TestPathFinder testPathFinder;
 
     // Path Search
-    BreadthFirstPaths findAllPaths;
+    BreadthFirstFindAllPaths findAllPaths;
 
     // Cycle in Graph
     CycleInDirectedGraph cycleInDirectedGraph;
@@ -61,11 +64,11 @@ public class PathFinderTest {
         // Init DirectedGraph
         directedGraph = new DirectedGraph(GRAPH);
 
-        // Init PathFinder
-        pathFinder = new PathFinder(directedGraph, "A");
+        // Init TestPathFinder
+        testPathFinder = new TestPathFinder(directedGraph, "A");
 
         // Init search
-        findAllPaths = new BreadthFirstPaths(directedGraph);
+        findAllPaths = new BreadthFirstFindAllPaths(directedGraph);
 
         // Init cycle detection
         cycleInDirectedGraph = new CycleInDirectedGraph();

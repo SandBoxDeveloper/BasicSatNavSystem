@@ -1,4 +1,6 @@
-package com.hulldiscover.zeus.basicsatnavsystem;
+package com.hulldiscover.zeus.basicsatnavsystem.TestCode;
+
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +8,15 @@ import java.util.Stack;
 
 /**
  * Created by Zeus on 15/06/16.
- * update
+ *
+ * This is an attempt to implement detection of a cycle
+ * in a directed graph.
+ *
+ * It is an experimental class not used for production
+ * and will implemented into the final production code
+ * in the future during code-clean up and refactoring.
  */
-public class DirectedCycle {
+public class TestDirectedCycle {
     private boolean[] marked;        // marked[v] = has vertex v been marked?
     private int[] edgeTo;            // edgeTo[v] = predecessor vertex on path to v
     private boolean[] onStack;       // onStack[v] = is vertex on the stack?
@@ -19,7 +27,7 @@ public class DirectedCycle {
      * finds such a cycle.
      * @param directedGraph the digraph
      */
-    public DirectedCycle(DirectedGraph directedGraph) {
+    public TestDirectedCycle(DirectedGraph directedGraph) {
         marked  = new boolean[directedGraph.numberOfVertices()];
         onStack = new boolean[directedGraph.numberOfVertices()];
         edgeTo  = new int[directedGraph.numberOfVertices()];
@@ -33,14 +41,17 @@ public class DirectedCycle {
 
         for (int v = 0; v < directedGraph.numberOfVertices(); v++) {
             String vertex = listV.get(v);
-            if (!marked[v] && cycle == null) dfs(directedGraph, vertex);
+            if (!marked[v] && cycle == null) depthFirstSearch(directedGraph, vertex);
         }
     }
 
 
 
-    // check that algorithm computes either the topological order or finds a directed cycle
-    private void dfs(DirectedGraph directedGraph, String vertex) {
+    /**
+     * Method to check that algorithm computes
+     * either the topological order or finds a directed cycle.
+     */
+    private void depthFirstSearch(DirectedGraph directedGraph, String vertex) {
 
         // List of vertices
         Iterable<String> vertices = directedGraph.vertices();
@@ -74,7 +85,7 @@ public class DirectedCycle {
                 edgeTo[w] = v; // index of vertex found
                 String ve = listV.get(w);
                 //w = listV.indexOf(ve);
-                dfs(directedGraph, ve);
+                depthFirstSearch(directedGraph, ve);
             }
 
 

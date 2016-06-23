@@ -1,6 +1,8 @@
 package com.hulldiscover.zeus.basicsatnavsystem;
 
-import com.hulldiscover.zeus.basicsatnavsystem.Model.ShortestPath;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DijkstraFindShortestPath;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.BreadthFirstFindAllPaths;
+import com.hulldiscover.zeus.basicsatnavsystem.Production.DirectedGraph;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -40,10 +42,10 @@ public class ShortestPathTest {
     DirectedGraph directedDirectedGraph;
 
     // Path Search
-    BreadthFirstPaths findAllPaths;
+    BreadthFirstFindAllPaths findAllPaths;
 
     // Shortest Path Search
-    ShortestPath searchForShortestPath;
+    DijkstraFindShortestPath searchForShortestPath;
 
 
     /**
@@ -56,10 +58,10 @@ public class ShortestPathTest {
         directedDirectedGraph = new DirectedGraph(GRAPH);
 
         // Init search
-        findAllPaths = new BreadthFirstPaths(directedDirectedGraph);
+        findAllPaths = new BreadthFirstFindAllPaths(directedDirectedGraph);
 
         // Init shortest path search
-        searchForShortestPath = new ShortestPath();
+        searchForShortestPath = new DijkstraFindShortestPath();
     }
 
 
