@@ -35,8 +35,3 @@ script:
   - ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
   - rm /home/travis/.gradle/caches/2.8/plugin-resolution/cache.properties.lock
 
-
-
-script:
-   - ./gradlew build connectedCheck
-
