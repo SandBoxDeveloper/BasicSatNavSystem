@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/SandBoxDeveloper/BasicSatNavSystem.svg?branch=master)](https://travis-ci.org/SandBoxDeveloper/BasicSatNavSystem)
+[![codecov.io](https://codecov.io/github/SandBoxDeveloper/BasicSatNavSystem/coverage.svg?branch=master)](https://codecov.io/github/SandBoxDeveloper/BasicSatNavSystem?branch=master)
 
 # BasicSatNavSystem
 
