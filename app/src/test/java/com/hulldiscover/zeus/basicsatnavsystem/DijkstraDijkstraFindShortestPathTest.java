@@ -6,12 +6,6 @@ import com.hulldiscover.zeus.basicsatnavsystem.TestCode.TestDijkstraShortestPath
 import com.hulldiscover.zeus.basicsatnavsystem.TestCode.TestPathFinder;
 
 import org.junit.Before;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertFalse;
 
 /**
  * Created by Zeus on 14/06/16.
@@ -73,7 +67,7 @@ public class DijkstraDijkstraFindShortestPathTest {
 
     // There exist a route for A-E-D
     // Expected output FALSE
-    @Test
+    /*@Test
     public void routeExistTestCase() {
         // Prepare
         List<String> routePath = new ArrayList<String>();
@@ -91,7 +85,7 @@ public class DijkstraDijkstraFindShortestPathTest {
         //shortestPath.computePath(directedGraph, A); // run Dijkstra
         //System.out.println("Distance to " + Z + ": " + Z.minDistance);
         List<String> path = shortestPath.getShortestPathTo(A);
-    }
+    }*/
 
 
 

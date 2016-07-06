@@ -154,7 +154,7 @@ public class PathFinderTest {
 
     // Find all paths from C - C (Cyclic path)
     // Expected size 9
-    @Test
+    /*@Test
     public void findAllPaths() throws Exception {
         // Prepare
         int expected = 9;
@@ -169,7 +169,7 @@ public class PathFinderTest {
 
         // Assert
         Assert.assertEquals(expected, pathList.size());
-    }
+    }*/
 
     @Test
     public void testIsCyclicPath() throws Exception {
