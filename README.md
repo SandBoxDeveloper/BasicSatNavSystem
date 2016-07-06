@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/SandBoxDeveloper/BasicSatNavSystem.svg?branch=master)](https://travis-ci.org/SandBoxDeveloper/BasicSatNavSystem)
+
 # BasicSatNavSystem
 
 Android (Java implementation) application of a simple route navigation system to guide a driver around a network of one way streets in a small town. 
